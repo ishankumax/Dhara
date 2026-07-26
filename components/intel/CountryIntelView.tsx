@@ -6,7 +6,6 @@ import {
   TrendingUp,
   Globe2,
   FileText,
-  ArrowRightLeft,
   DollarSign,
   Users,
   Zap,
@@ -15,14 +14,10 @@ import { CountryIntelProfile } from '@/types';
 
 interface CountryIntelViewProps {
   country: CountryIntelProfile | null;
-  onSetCompareTarget: (id: string) => void;
-  isComparing: boolean;
 }
 
 export const CountryIntelView: React.FC<CountryIntelViewProps> = ({
   country,
-  onSetCompareTarget,
-  isComparing,
 }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'military' | 'economy' | 'alliances'>(
     'overview'
@@ -68,19 +63,6 @@ export const CountryIntelView: React.FC<CountryIntelViewProps> = ({
             </p>
           </div>
         </div>
-
-        {/* Action: Compare Target Button */}
-        <button
-          onClick={() => onSetCompareTarget(country.id)}
-          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all ${
-            isComparing
-              ? 'bg-amber-500 text-white shadow-sm'
-              : 'bg-[var(--accent-muted)] text-[var(--accent-primary)] hover:bg-[var(--accent-primary)] hover:text-white'
-          }`}
-        >
-          <ArrowRightLeft className="w-3.5 h-3.5" />
-          <span>{isComparing ? 'Comparing' : 'Compare'}</span>
-        </button>
       </div>
 
       {/* Navigation Tabs */}

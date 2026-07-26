@@ -7,14 +7,12 @@ import { CountryOverview } from '@/types';
 interface VectorMapStageProps {
   countries: CountryOverview[];
   activeCountryId: string;
-  compareCountryId: string | null;
   onSelectCountry: (id: string) => void;
 }
 
 export const VectorMapStage: React.FC<VectorMapStageProps> = ({
   countries,
   activeCountryId,
-  compareCountryId,
   onSelectCountry,
 }) => {
   const [zoomLevel, setZoomLevel] = useState(1);
@@ -182,7 +180,7 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
         </div>
       </div>
 
-      {/* Interactive Vector SVG Canvas Container (Borderless & Seamless) */}
+      {/* Interactive Vector SVG Canvas Container */}
       <div className="flex-1 bg-[var(--bg-secondary)]/30 border-none rounded-2xl overflow-hidden relative flex items-center justify-center p-2 backdrop-blur-xs">
         {/* Subtle Map Grid Pattern */}
         <div className="absolute inset-0 bg-[radial-gradient(var(--border-color)_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
@@ -195,7 +193,6 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
           {/* Render All Country Vector Paths */}
           {Object.entries(countryPathNodes).map(([id, node]) => {
             const isActive = id === activeCountryId;
-            const isCompare = id === compareCountryId;
 
             return (
               <g key={id}>
@@ -208,8 +205,6 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
                   className={`cursor-pointer transition-all duration-300 ${
                     isActive
                       ? 'fill-[var(--accent-primary)] stroke-white stroke-[2px] filter drop-shadow-md'
-                      : isCompare
-                      ? 'fill-amber-500 stroke-amber-200 stroke-[2px] filter drop-shadow-md'
                       : hoveredCountry === id
                       ? 'fill-[var(--accent-hover)]/70 stroke-[var(--accent-primary)] stroke-1'
                       : 'fill-[var(--bg-tertiary)]/70 stroke-[var(--border-color)]/50 stroke-1 hover:fill-[var(--bg-tertiary)]'
@@ -236,7 +231,7 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
                   y={node.cy}
                   onClick={() => onSelectCountry(id)}
                   className={`cursor-pointer text-[10px] font-mono font-bold pointer-events-none transition-all ${
-                    isActive || isCompare
+                    isActive
                       ? 'fill-white font-extrabold text-[12px]'
                       : 'fill-[var(--text-muted)] group-hover:fill-[var(--text-primary)]'
                   }`}

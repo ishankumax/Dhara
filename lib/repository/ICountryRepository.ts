@@ -10,12 +10,4 @@ export interface ICountryRepository {
    * Retrieves detailed country profile by ISO 3-letter ID (e.g. "USA")
    */
   getCountryById(id: string): Promise<CountryIntelProfile | null>;
-
-  /**
-   * Compares two countries side-by-side
-   */
-  compareCountries(idA: string, idB: string): Promise<{
-    countryA: CountryIntelProfile | null;
-    countryB: CountryIntelProfile | null;
-  }>;
 }

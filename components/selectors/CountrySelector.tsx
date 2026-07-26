@@ -1,23 +1,19 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Search, Shield, Globe, Trophy, ChevronRight } from 'lucide-react';
+import { Search, Shield, Globe, ChevronRight } from 'lucide-react';
 import { CountryOverview } from '@/types';
 
 interface CountrySelectorProps {
   countries: CountryOverview[];
   activeCountryId: string;
-  compareCountryId: string | null;
   onSelectCountry: (id: string) => void;
-  isCompareMode: boolean;
 }
 
 export const CountrySelector: React.FC<CountrySelectorProps> = ({
   countries,
   activeCountryId,
-  compareCountryId,
   onSelectCountry,
-  isCompareMode,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [regionFilter, setRegionFilter] = useState('ALL');
@@ -43,7 +39,7 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
         <div className="flex items-center space-x-2">
           <Globe className="w-4 h-4 text-[var(--accent-primary)]" />
           <h2 className="font-semibold text-xs text-[var(--text-primary)] uppercase tracking-widest">
-            {isCompareMode ? 'Select Target for Compare' : 'Global Nations Index'}
+            Global Nations Index
           </h2>
         </div>
         <span className="text-[11px] font-mono text-[var(--text-muted)]">
@@ -84,7 +80,6 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
       <div className="flex-1 overflow-y-auto space-y-1.5 pr-1 max-h-[550px]">
         {filteredCountries.map((country) => {
           const isActive = country.id === activeCountryId;
-          const isComparing = country.id === compareCountryId;
 
           return (
             <div
@@ -93,8 +88,6 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
               className={`group cursor-pointer p-2.5 rounded-xl transition-all flex items-center justify-between ${
                 isActive
                   ? 'bg-[var(--accent-muted)] border border-[var(--accent-primary)] shadow-sm'
-                  : isComparing
-                  ? 'bg-amber-500/15 border border-amber-500'
                   : 'bg-[var(--bg-secondary)]/40 hover:bg-[var(--bg-secondary)]/80 border border-transparent'
               }`}
             >

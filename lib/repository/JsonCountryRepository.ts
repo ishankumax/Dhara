@@ -42,7 +42,7 @@ export class JsonCountryRepository implements ICountryRepository {
       return seedProfiles[code];
     }
 
-    // Safe fallback placeholder profile for unseeded countries (AUS, CAN, BRA, etc.)
+    // Safe fallback placeholder profile for unseeded countries
     return {
       ...overview,
       hasDetailedData: false,
@@ -66,18 +66,6 @@ export class JsonCountryRepository implements ICountryRepository {
         strategicPartners: ['Regional Allies'],
       },
     };
-  }
-
-  async compareCountries(idA: string, idB: string): Promise<{
-    countryA: CountryIntelProfile | null;
-    countryB: CountryIntelProfile | null;
-  }> {
-    const [countryA, countryB] = await Promise.all([
-      this.getCountryById(idA),
-      this.getCountryById(idB),
-    ]);
-
-    return { countryA, countryB };
   }
 }
 

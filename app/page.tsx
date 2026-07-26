@@ -7,7 +7,6 @@ import { BottomNavbar } from '@/components/layout/BottomNavbar';
 import { CountrySelector } from '@/components/selectors/CountrySelector';
 import { VectorMapStage } from '@/components/map/VectorMapStage';
 import { CountryIntelView } from '@/components/intel/CountryIntelView';
-import { ComparisonMatrix } from '@/components/comparison/ComparisonMatrix';
 import { TopographicBackground } from '@/components/common/TopographicBackground';
 import { countryRepository } from '@/lib/repository/JsonCountryRepository';
 import countryIndexData from '@/data/index.json';
@@ -18,57 +17,24 @@ function DharaDashboardContent() {
   const router = useRouter();
 
   const activeCountryId = searchParams.get('country') || 'USA';
-  const compareCountryId = searchParams.get('compare');
 
   // Synchronous initial state from registry for instant 0ms rendering
   const [countriesIndex] = useState<CountryOverview[]>(countryIndexData as CountryOverview[]);
   const [activeProfile, setActiveProfile] = useState<CountryIntelProfile | null>(null);
-  const [compareProfile, setCompareProfile] = useState<CountryIntelProfile | null>(null);
 
-  // Sync profile data when URL query parameters change
+  // Sync profile data when URL query parameter changes
   useEffect(() => {
     async function syncProfiles() {
       const profileA = await countryRepository.getCountryById(activeCountryId);
       setActiveProfile(profileA);
-
-      if (compareCountryId) {
-        const profileB = await countryRepository.getCountryById(compareCountryId);
-        setCompareProfile(profileB);
-      } else {
-        setCompareProfile(null);
-      }
     }
     syncProfiles();
-  }, [activeCountryId, compareCountryId]);
+  }, [activeCountryId]);
 
-  // URL state update helpers
+  // URL state update helper
   const handleSelectCountry = (id: string) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (compareCountryId) {
-      // In comparison mode, set target B
-      params.set('compare', id);
-    } else {
-      // In normal mode, set active country A
-      params.set('country', id);
-    }
-    router.push(`/?${params.toString()}`);
-  };
-
-  const handleToggleCompareMode = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    if (compareCountryId) {
-      params.delete('compare');
-    } else {
-      // Default comparison target: CHN if active is USA, otherwise USA
-      const target = activeCountryId === 'USA' ? 'CHN' : 'USA';
-      params.set('compare', target);
-    }
-    router.push(`/?${params.toString()}`);
-  };
-
-  const handleCloseComparison = () => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('compare');
+    params.set('country', id);
     router.push(`/?${params.toString()}`);
   };
 
@@ -81,63 +47,35 @@ function DharaDashboardContent() {
       <TopBar />
 
       <main className="flex-1 min-h-0 max-w-[1600px] w-full mx-auto p-3 lg:p-4 h-full z-10">
-        {compareCountryId && activeProfile && compareProfile ? (
-          /* Mode 1: 4:4 Grid Split Comparison View */
-          <div className="h-full min-h-0">
-            <ComparisonMatrix
-              countryA={activeProfile}
-              countryB={compareProfile}
-              onClose={handleCloseComparison}
+        {/* Standard 8-Grid Spatial Matrix Layout (2 : 4 : 2) */}
+        <div className="grid grid-cols-1 lg:grid-cols-8 gap-3 h-full min-h-0">
+          {/* Left 2 Spatial Areas (Cols 1–2): Country Selector & Index */}
+          <div className="lg:col-span-2 h-full min-h-0">
+            <CountrySelector
+              countries={countriesIndex}
+              activeCountryId={activeCountryId}
+              onSelectCountry={handleSelectCountry}
             />
           </div>
-        ) : (
-          /* Mode 2: Standard 8-Grid Spatial Matrix Layout (2 : 4 : 2) */
-          <div className="grid grid-cols-1 lg:grid-cols-8 gap-3 h-full min-h-0">
-            {/* Left 2 Spatial Areas (Cols 1–2): Country Selector & Index */}
-            <div className="lg:col-span-2 h-full min-h-0">
-              <CountrySelector
-                countries={countriesIndex}
-                activeCountryId={activeCountryId}
-                compareCountryId={compareCountryId}
-                onSelectCountry={handleSelectCountry}
-                isCompareMode={!!compareCountryId}
-              />
-            </div>
 
-            {/* Center 4 Spatial Areas (Cols 3–6): Interactive Geo-Map Stage */}
-            <div className="lg:col-span-4 h-full min-h-0">
-              <VectorMapStage
-                countries={countriesIndex}
-                activeCountryId={activeCountryId}
-                compareCountryId={compareCountryId}
-                onSelectCountry={handleSelectCountry}
-              />
-            </div>
-
-            {/* Right 2 Spatial Areas (Cols 7–8): Detailed Country Intel Panel */}
-            <div className="lg:col-span-2 h-full min-h-0">
-              <CountryIntelView
-                country={activeProfile}
-                onSetCompareTarget={(id) => {
-                  const target = id === 'USA' ? 'CHN' : 'USA';
-                  const params = new URLSearchParams(searchParams.toString());
-                  params.set('country', id);
-                  params.set('compare', target);
-                  router.push(`/?${params.toString()}`);
-                }}
-                isComparing={!!compareCountryId}
-              />
-            </div>
+          {/* Center 4 Spatial Areas (Cols 3–6): Interactive Geo-Map Stage */}
+          <div className="lg:col-span-4 h-full min-h-0">
+            <VectorMapStage
+              countries={countriesIndex}
+              activeCountryId={activeCountryId}
+              onSelectCountry={handleSelectCountry}
+            />
           </div>
-        )}
+
+          {/* Right 2 Spatial Areas (Cols 7–8): Detailed Country Intel Panel */}
+          <div className="lg:col-span-2 h-full min-h-0">
+            <CountryIntelView country={activeProfile} />
+          </div>
+        </div>
       </main>
 
       {/* Floating Bottom Pill Navbar & Dynamic Timezone Status Bar */}
-      <BottomNavbar
-        activeCountryId={activeCountryId}
-        compareCountryId={compareCountryId}
-        onToggleCompareMode={handleToggleCompareMode}
-      />
+      <BottomNavbar activeCountryId={activeCountryId} />
     </div>
   );
 }

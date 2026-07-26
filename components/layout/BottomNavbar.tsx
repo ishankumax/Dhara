@@ -1,20 +1,16 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Globe, ArrowRightLeft, Palette, Sun, Moon, Shield } from 'lucide-react';
+import { Globe, Palette, Sun, Moon, Shield } from 'lucide-react';
 import { AccentColor, ThemeMode } from '@/types';
 import { countryTimezones } from '@/lib/timezones';
 
 interface BottomNavbarProps {
   activeCountryId: string;
-  compareCountryId: string | null;
-  onToggleCompareMode: () => void;
 }
 
 export const BottomNavbar: React.FC<BottomNavbarProps> = ({
   activeCountryId,
-  compareCountryId,
-  onToggleCompareMode,
 }) => {
   const [theme, setTheme] = useState<ThemeMode>('dark');
   const [accent, setAccent] = useState<AccentColor>('amber');
@@ -136,35 +132,10 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
         {/* Floating Pill Container */}
         <div className="flex items-center gap-2 p-1.5 bg-[var(--bg-secondary)]/90 border border-[var(--border-color)] rounded-full backdrop-blur-2xl shadow-2xl transition-all duration-300 ring-1 ring-white/10">
           {/* Active Workspace / View Pill */}
-          <button
-            onClick={() => {
-              if (compareCountryId) onToggleCompareMode();
-            }}
-            className={`flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-300 ${
-              !compareCountryId
-                ? 'bg-[var(--accent-primary)] text-white shadow-md'
-                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)]'
-            }`}
-          >
+          <div className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[var(--accent-primary)] text-white shadow-md">
             <Globe className="w-3.5 h-3.5" />
             <span>Dhara Core</span>
-          </button>
-
-          {/* Vertical Divider */}
-          <div className="w-px h-4 bg-[var(--border-color)]" />
-
-          {/* Side-by-Side Compare Pill */}
-          <button
-            onClick={onToggleCompareMode}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 ${
-              compareCountryId
-                ? 'bg-amber-500 text-white font-semibold shadow-md'
-                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)]'
-            }`}
-          >
-            <ArrowRightLeft className="w-3.5 h-3.5" />
-            <span>{compareCountryId ? `Compare vs ${compareCountryId}` : 'Compare'}</span>
-          </button>
+          </div>
 
           {/* Vertical Divider */}
           <div className="w-px h-4 bg-[var(--border-color)]" />
