@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import { TopBar } from '@/components/layout/TopBar';
 import { BottomNavbar } from '@/components/layout/BottomNavbar';
 import { CountrySelector } from '@/components/selectors/CountrySelector';
 import { VectorMapStage } from '@/components/map/VectorMapStage';
@@ -71,11 +72,14 @@ function DharaDashboardContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg-primary)] transition-colors pb-20 pt-4">
-      <main className="flex-1 max-w-[1600px] w-full mx-auto p-4 lg:p-6">
+    <div className="h-screen max-h-screen overflow-hidden flex flex-col bg-[var(--bg-primary)] transition-colors pt-8 pb-14 select-none">
+      {/* Fixed Top Status Bar */}
+      <TopBar />
+
+      <main className="flex-1 min-h-0 max-w-[1600px] w-full mx-auto p-3 lg:p-4 h-full">
         {compareCountryId && activeProfile && compareProfile ? (
           /* Mode 1: 4:4 Grid Split Comparison View */
-          <div className="h-full">
+          <div className="h-full min-h-0">
             <ComparisonMatrix
               countryA={activeProfile}
               countryB={compareProfile}
@@ -84,9 +88,9 @@ function DharaDashboardContent() {
           </div>
         ) : (
           /* Mode 2: Standard 8-Grid Spatial Matrix Layout (2 : 4 : 2) */
-          <div className="grid grid-cols-1 lg:grid-cols-8 gap-4 h-full">
+          <div className="grid grid-cols-1 lg:grid-cols-8 gap-3 h-full min-h-0">
             {/* Left 2 Spatial Areas (Cols 1–2): Country Selector & Index */}
-            <div className="lg:col-span-2 h-[650px] lg:h-auto">
+            <div className="lg:col-span-2 h-full min-h-0">
               <CountrySelector
                 countries={countriesIndex}
                 activeCountryId={activeCountryId}
@@ -97,7 +101,7 @@ function DharaDashboardContent() {
             </div>
 
             {/* Center 4 Spatial Areas (Cols 3–6): Interactive Geo-Map Stage */}
-            <div className="lg:col-span-4 h-[450px] lg:h-auto">
+            <div className="lg:col-span-4 h-full min-h-0">
               <VectorMapStage
                 countries={countriesIndex}
                 activeCountryId={activeCountryId}
@@ -107,7 +111,7 @@ function DharaDashboardContent() {
             </div>
 
             {/* Right 2 Spatial Areas (Cols 7–8): Detailed Country Intel Panel */}
-            <div className="lg:col-span-2 h-[650px] lg:h-auto">
+            <div className="lg:col-span-2 h-full min-h-0">
               <CountryIntelView
                 country={activeProfile}
                 onSetCompareTarget={(id) => {
@@ -138,7 +142,7 @@ export default function Home() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center text-[var(--text-primary)]">
+        <div className="h-screen bg-[var(--bg-primary)] flex items-center justify-center text-[var(--text-primary)]">
           <div className="w-8 h-8 border-4 border-[var(--accent-primary)] border-t-transparent rounded-full animate-spin" />
         </div>
       }
