@@ -3,6 +3,7 @@
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { Header } from '@/components/layout/Header';
+import { BottomNavbar } from '@/components/layout/BottomNavbar';
 import { CountrySelector } from '@/components/selectors/CountrySelector';
 import { VectorMapStage } from '@/components/map/VectorMapStage';
 import { CountryIntelView } from '@/components/intel/CountryIntelView';
@@ -91,7 +92,7 @@ function DharaDashboardContent() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg-primary)] transition-colors">
+    <div className="min-h-screen flex flex-col bg-[var(--bg-primary)] transition-colors pb-20">
       <Header
         activeCountryId={activeCountryId}
         compareCountryId={compareCountryId}
@@ -150,9 +151,12 @@ function DharaDashboardContent() {
         )}
       </main>
 
-      <footer className="border-t border-[var(--border-color)] bg-[var(--bg-secondary)] py-3 px-4 text-center text-xs text-[var(--text-muted)] font-mono">
-        Dhara Geopolitical Intel Platform • Production MVP v1.0 • Built with Next.js 14 & Tailwind CSS
-      </footer>
+      {/* Floating Bottom Pill Navbar & Status Bar */}
+      <BottomNavbar
+        activeCountryId={activeCountryId}
+        compareCountryId={compareCountryId}
+        onToggleCompareMode={handleToggleCompareMode}
+      />
     </div>
   );
 }
