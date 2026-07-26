@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Dhara | Global Geopolitical & Strategic Intelligence Platform',
-  description: 'Explore, understand, and compare global geopolitical landscapes, military capabilities, historical timelines, and strategic alliances.',
+  title: 'DharaPod | Global Geopolitical & Strategic Intelligence Platform',
+  description: 'Explore, understand, and analyze global geopolitical landscapes, military capabilities, historical timelines, and strategic alliances with DharaPod.',
 };
 
 export default function RootLayout({

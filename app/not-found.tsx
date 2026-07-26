@@ -17,7 +17,7 @@ export default function NotFound() {
           className="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-[var(--accent-primary)] text-white text-xs font-semibold hover:bg-[var(--accent-hover)] transition-colors shadow-md"
         >
           <Home className="w-4 h-4" />
-          <span>Return to Dhara Core</span>
+          <span>Return to DharaPod</span>
         </Link>
       </div>
     </div>

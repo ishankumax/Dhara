@@ -1,7 +1,7 @@
 import { countryRepository } from '../lib/repository/JsonCountryRepository';
 
 async function runDataTests() {
-  console.log('🧪 Starting Dhara Data Repository Integration Tests...\n');
+  console.log('🧪 Starting DharaPod Data Repository Integration Tests...\n');
 
   // Test 1: Fetch all overview countries
   const allCountries = await countryRepository.getAllCountries();

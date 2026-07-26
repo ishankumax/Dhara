@@ -12,7 +12,7 @@ import { countryRepository } from '@/lib/repository/JsonCountryRepository';
 import countryIndexData from '@/data/index.json';
 import { CountryIntelProfile, CountryOverview } from '@/types';
 
-function DharaDashboardContent() {
+function DharaPodDashboardContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -89,7 +89,7 @@ export default function Home() {
         </div>
       }
     >
-      <DharaDashboardContent />
+      <DharaPodDashboardContent />
     </Suspense>
   );
 }

@@ -9,7 +9,7 @@ export const TopBar: React.FC = () => {
       <div className="flex items-center space-x-2">
         <Shield className="w-3.5 h-3.5 text-[var(--accent-primary)] animate-pulse" />
         <span className="font-bold text-[var(--text-primary)] uppercase tracking-widest">
-          DHARA PLATFORM TOP BAR
+          DHARAPOD PLATFORM TOP BAR
         </span>
       </div>
       <div className="hidden sm:block text-[var(--text-secondary)] uppercase">

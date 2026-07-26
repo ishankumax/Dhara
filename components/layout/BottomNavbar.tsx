@@ -134,7 +134,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
           {/* Active Workspace / View Pill */}
           <div className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-[var(--accent-primary)] text-white shadow-md">
             <Globe className="w-3.5 h-3.5" />
-            <span>Dhara Core</span>
+            <span>DharaPod</span>
           </div>
 
           {/* Vertical Divider */}
@@ -187,7 +187,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
         {/* Right: Selected Country Time (Left) + IST (Right) in pure Neon Text */}
         <div className="flex items-center space-x-3">
           <div className="flex items-center space-x-2 text-[var(--accent-primary)] font-extrabold text-[11px] font-mono tracking-widest drop-shadow-[0_0_8px_var(--accent-primary)]">
-            {/* Selected Country Local Time (Displayed on the LEFT side of IST when country clicked) */}
+            {/* Selected Country Local Time */}
             {selectedCountryTime && (
               <>
                 <span>{selectedCountryTime}</span>
