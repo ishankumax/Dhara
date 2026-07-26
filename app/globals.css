@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Default Editorial Light Mode */
+  --bg-primary: #F9FAFB;
+  --bg-secondary: #FFFFFF;
+  --bg-tertiary: #F3F4F6;
+  --border-color: #E5E7EB;
+  --text-primary: #111827;
+  --text-secondary: #4B5563;
+  --text-muted: #9CA3AF;
+
+  /* Accent: Tactical Amber Gold (Default) */
+  --accent-primary: #D97706;
+  --accent-hover: #B45309;
+  --accent-muted: rgba(217, 119, 6, 0.12);
+}
+
+[data-theme="dark"] {
+  /* Editorial Dark Mode */
+  --bg-primary: #0F172A;
+  --bg-secondary: #1E293B;
+  --bg-tertiary: #334155;
+  --border-color: #334155;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+}
+
+/* Accent Themes */
+[data-accent="amber"] {
+  --accent-primary: #D97706;
+  --accent-hover: #B45309;
+  --accent-muted: rgba(217, 119, 6, 0.15);
+}
+
+[data-accent="emerald"] {
+  --accent-primary: #059669;
+  --accent-hover: #047857;
+  --accent-muted: rgba(5, 150, 105, 0.15);
+}
+
+[data-accent="cyan"] {
+  --accent-primary: #0891B2;
+  --accent-hover: #0E7490;
+  --accent-muted: rgba(8, 145, 178, 0.15);
+}
+
+[data-accent="crimson"] {
+  --accent-primary: #DC2626;
+  --accent-hover: #B91C1C;
+  --accent-muted: rgba(220, 38, 38, 0.15);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 100vh;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
