@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Shield, Sun, Moon, Palette, ArrowRightLeft, Globe } from 'lucide-react';
+import { Sun, Moon, Palette, ArrowRightLeft, Globe, Sparkles } from 'lucide-react';
 import { AccentColor, ThemeMode } from '@/types';
 
 interface HeaderProps {
@@ -39,33 +39,29 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-[var(--bg-secondary)] border-b border-[var(--border-color)] px-4 lg:px-8 py-3 transition-colors">
-      <div className="max-w-[1600px] mx-auto flex items-center justify-between">
-        {/* Brand Identity */}
+    <header className="sticky top-0 z-50 px-4 lg:px-8 py-3 transition-colors">
+      <div className="max-w-[1600px] mx-auto flex items-center justify-between p-2 px-4 bg-[var(--bg-secondary)]/80 border border-[var(--border-color)] rounded-full backdrop-blur-2xl shadow-lg transition-all duration-300">
+        
+        {/* Brand Identity: Dhara+ */}
         <div className="flex items-center space-x-3">
-          <div className="w-9 h-9 rounded-lg bg-[var(--accent-muted)] border border-[var(--accent-primary)] flex items-center justify-center text-[var(--accent-primary)] shadow-sm">
-            <Globe className="w-5 h-5 animate-pulse" />
+          <div className="w-8 h-8 rounded-full bg-[var(--accent-muted)] border border-[var(--accent-primary)] flex items-center justify-center text-[var(--accent-primary)] shadow-sm">
+            <Globe className="w-4 h-4 animate-pulse" />
           </div>
-          <div>
-            <div className="flex items-center space-x-2">
-              <h1 className="font-serif font-bold text-lg tracking-wide text-[var(--text-primary)]">
-                DHARA
-              </h1>
-              <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-[var(--accent-muted)] text-[var(--accent-primary)] border border-[var(--accent-primary)]">
-                v1.0 Intel
-              </span>
-            </div>
-            <p className="text-xs text-[var(--text-secondary)] hidden sm:block">
-              Global Geopolitical & Strategic Intelligence Platform
-            </p>
+          <div className="flex items-center space-x-1.5">
+            <h1 className="font-serif font-bold text-base tracking-wide text-[var(--text-primary)]">
+              Dhara<span className="text-[var(--accent-primary)] font-extrabold">+</span>
+            </h1>
+            <span className="text-[9px] font-mono uppercase px-2 py-0.5 rounded-full bg-[var(--accent-muted)] text-[var(--accent-primary)] border border-[var(--accent-primary)]">
+              Intel Core
+            </span>
           </div>
         </div>
 
-        {/* Center Comparison Mode Trigger */}
-        <div className="flex items-center space-x-3">
+        {/* Center Pill Mode Switcher */}
+        <div className="flex items-center space-x-2">
           <button
             onClick={onToggleCompareMode}
-            className={`flex items-center space-x-2 px-3 py-1.5 rounded-md text-xs font-medium border transition-all ${
+            className={`flex items-center space-x-2 px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-300 ${
               compareCountryId
                 ? 'bg-[var(--accent-primary)] text-white border-[var(--accent-primary)] shadow-md'
                 : 'bg-[var(--bg-tertiary)] text-[var(--text-primary)] border-[var(--border-color)] hover:border-[var(--accent-primary)]'
@@ -78,22 +74,22 @@ export const Header: React.FC<HeaderProps> = ({
           </button>
         </div>
 
-        {/* Customization Toolbar */}
-        <div className="flex items-center space-x-2">
+        {/* Customization Toolbar (Pill Style) */}
+        <div className="flex items-center space-x-1.5">
           {/* Accent Customizer Popup */}
           <div className="relative">
             <button
               onClick={() => setShowAccentPicker(!showAccentPicker)}
-              title="Change Accent Color"
-              className="p-2 rounded-md bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--accent-primary)] border border-[var(--border-color)] transition-colors"
+              title="Theme Accent Palette"
+              className="p-2 rounded-full bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--accent-primary)] border border-[var(--border-color)] transition-colors"
             >
               <Palette className="w-4 h-4" />
             </button>
 
             {showAccentPicker && (
-              <div className="absolute right-0 mt-2 w-48 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-lg shadow-xl p-2 z-50">
-                <div className="text-[11px] font-mono text-[var(--text-muted)] uppercase mb-2 px-1">
-                  Primary Accent Theme
+              <div className="absolute right-0 mt-3 w-48 bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-2xl shadow-2xl p-2 z-50 backdrop-blur-xl">
+                <div className="text-[10px] font-mono text-[var(--text-muted)] uppercase mb-2 px-2">
+                  Accent Color Theme
                 </div>
                 <div className="space-y-1">
                   {accents.map((item) => (
@@ -103,17 +99,17 @@ export const Header: React.FC<HeaderProps> = ({
                         setAccent(item.id);
                         setShowAccentPicker(false);
                       }}
-                      className={`w-full flex items-center space-x-2 px-2 py-1.5 rounded text-xs transition-colors ${
+                      className={`w-full flex items-center justify-between px-2.5 py-1.5 rounded-xl text-xs transition-all ${
                         accent === item.id
                           ? 'bg-[var(--accent-muted)] text-[var(--accent-primary)] font-semibold'
                           : 'text-[var(--text-primary)] hover:bg-[var(--bg-tertiary)]'
                       }`}
                     >
+                      <span>{item.name}</span>
                       <span
-                        className="w-3 h-3 rounded-full border border-black/20 shadow-sm"
+                        className="w-3 h-3 rounded-full border border-black/20 shadow-xs"
                         style={{ backgroundColor: item.colorHex }}
                       />
-                      <span>{item.name}</span>
                     </button>
                   ))}
                 </div>
@@ -125,7 +121,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={toggleTheme}
             title="Toggle Light/Dark Theme"
-            className="p-2 rounded-md bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] transition-colors"
+            className="p-2 rounded-full bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-color)] transition-colors"
           >
             {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
           </button>
