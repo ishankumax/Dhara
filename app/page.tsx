@@ -8,6 +8,7 @@ import { VectorMapStage } from '@/components/map/VectorMapStage';
 import { CountryIntelView } from '@/components/intel/CountryIntelView';
 import { ComparisonMatrix } from '@/components/comparison/ComparisonMatrix';
 import { countryRepository } from '@/lib/repository/JsonCountryRepository';
+import countryIndexData from '@/data/index.json';
 import { CountryIntelProfile, CountryOverview } from '@/types';
 
 function DharaDashboardContent() {
@@ -17,20 +18,10 @@ function DharaDashboardContent() {
   const activeCountryId = searchParams.get('country') || 'USA';
   const compareCountryId = searchParams.get('compare');
 
-  const [countriesIndex, setCountriesIndex] = useState<CountryOverview[]>([]);
+  // Synchronous initial state from registry for instant 0ms rendering
+  const [countriesIndex] = useState<CountryOverview[]>(countryIndexData as CountryOverview[]);
   const [activeProfile, setActiveProfile] = useState<CountryIntelProfile | null>(null);
   const [compareProfile, setCompareProfile] = useState<CountryIntelProfile | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  // Initial Data Fetch
-  useEffect(() => {
-    async function loadInitialData() {
-      const allCountries = await countryRepository.getAllCountries();
-      setCountriesIndex(allCountries);
-      setLoading(false);
-    }
-    loadInitialData();
-  }, []);
 
   // Sync profile data when URL query parameters change
   useEffect(() => {
@@ -78,17 +69,6 @@ function DharaDashboardContent() {
     params.delete('compare');
     router.push(`/?${params.toString()}`);
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[var(--bg-primary)] flex items-center justify-center text-[var(--text-primary)] font-serif">
-        <div className="flex flex-col items-center space-y-3">
-          <div className="w-10 h-10 border-4 border-[var(--accent-primary)] border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm font-mono tracking-wider uppercase">Loading Dhara Intelligence Engine...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--bg-primary)] transition-colors pb-20 pt-4">
