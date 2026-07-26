@@ -1,0 +1,51 @@
+{
+  "id": "USA",
+  "name": "United States",
+  "officialName": "United States of America",
+  "flagUrl": "https://flagcdn.com/w160/us.png",
+  "capital": "Washington, D.C.",
+  "region": "Americas",
+  "subregion": "North America",
+  "population": 334914895,
+  "gdpNominalUsd": 27360,
+  "gdpPerCapitaUsd": 81632,
+  "militaryRank": 1,
+  "defenseBudgetUsd": 831,
+  "hasDetailedData": true,
+  "summary": "The United States possesses the world's premier global power projection capability, backed by the largest defense budget, advanced stealth aviation, and 11 nuclear-powered aircraft supercarriers.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 13209,
+      "fighters": 1854,
+      "attackHelicopters": 983
+    },
+    "landForces": {
+      "tanks": 4657,
+      "armoredVehicles": 360000,
+      "artillery": 4096
+    },
+    "navalForces": {
+      "totalAssets": 472,
+      "aircraftCarriers": 11,
+      "submarines": 67,
+      "destroyers": 75
+    },
+    "personnel": {
+      "activeDuty": 1390000,
+      "reserves": 799500,
+      "paramilitary": 0
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 2.5,
+    "inflationPercent": 3.4,
+    "topExports": ["Refined Petroleum", "Aircraft & Spacecraft", "Integrated Circuits", "Pharmaceuticals"],
+    "topImports": ["Computers & Electronics", "Motor Vehicles", "Crude Oil", "Medical Instruments"],
+    "majorTradingPartners": ["Mexico", "Canada", "China", "Japan", "Germany"]
+  },
+  "alliances": {
+    "primaryBlock": "NATO",
+    "alliances": ["NATO (North Atlantic Treaty)", "AUKUS", "Quad", "Five Eyes"],
+    "strategicPartners": ["Japan", "South Korea", "Israel", "Australia", "India"]
+  }
+}

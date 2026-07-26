@@ -1,0 +1,51 @@
+{
+  "id": "IND",
+  "name": "India",
+  "officialName": "Republic of India",
+  "flagUrl": "https://flagcdn.com/w160/in.png",
+  "capital": "New Delhi",
+  "region": "Asia",
+  "subregion": "Southern Asia",
+  "population": 1428627663,
+  "gdpNominalUsd": 3550,
+  "gdpPerCapitaUsd": 2485,
+  "militaryRank": 4,
+  "defenseBudgetUsd": 74,
+  "hasDetailedData": true,
+  "summary": "India is the world's most populous democracy with a strategic non-aligned doctrine. It maintains a powerful multi-domain military, two operational aircraft carriers, nuclear triad deterrence, and rapid defense indigenization.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 2296,
+      "fighters": 606,
+      "attackHelicopters": 40
+    },
+    "landForces": {
+      "tanks": 4614,
+      "armoredVehicles": 151200,
+      "artillery": 8500
+    },
+    "navalForces": {
+      "totalAssets": 294,
+      "aircraftCarriers": 2,
+      "submarines": 18,
+      "destroyers": 12
+    },
+    "personnel": {
+      "activeDuty": 1450000,
+      "reserves": 1155000,
+      "paramilitary": 2527000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 7.6,
+    "inflationPercent": 4.8,
+    "topExports": ["Refined Petroleum", "Diamonds & Jewelry", "Packaged Medicaments", "IT Services", "Rice"],
+    "topImports": ["Crude Petroleum", "Gold", "Coal", "Integrated Circuits"],
+    "majorTradingPartners": ["United States", "China", "United Arab Emirates", "Russia", "Saudi Arabia"]
+  },
+  "alliances": {
+    "primaryBlock": "Quad / BRICS",
+    "alliances": ["Quad", "BRICS+", "SCO", "I2U2 Group"],
+    "strategicPartners": ["Russia", "United States", "France", "Israel", "Japan", "UAE"]
+  }
+}

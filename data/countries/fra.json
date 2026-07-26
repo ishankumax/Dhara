@@ -1,0 +1,51 @@
+{
+  "id": "FRA",
+  "name": "France",
+  "officialName": "French Republic",
+  "flagUrl": "https://flagcdn.com/w160/fr.png",
+  "capital": "Paris",
+  "region": "Europe",
+  "subregion": "Western Europe",
+  "population": 68070000,
+  "gdpNominalUsd": 3030,
+  "gdpPerCapitaUsd": 44400,
+  "militaryRank": 6,
+  "defenseBudgetUsd": 56,
+  "hasDetailedData": true,
+  "summary": "France maintains strategic military autonomy with a fully independent nuclear triad, advanced Rafale multirole fighter fleet, global overseas military bases, and the nuclear-powered aircraft carrier Charles de Gaulle.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 972,
+      "fighters": 224,
+      "attackHelicopters": 69
+    },
+    "landForces": {
+      "tanks": 222,
+      "armoredVehicles": 8500,
+      "artillery": 240
+    },
+    "navalForces": {
+      "totalAssets": 128,
+      "aircraftCarriers": 1,
+      "submarines": 9,
+      "destroyers": 10
+    },
+    "personnel": {
+      "activeDuty": 200000,
+      "reserves": 41000,
+      "paramilitary": 175000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 0.9,
+    "inflationPercent": 2.2,
+    "topExports": ["Aircraft & Spacecraft", "Packaged Medicaments", "Cars", "Wine & Spirits", "Cosmetics"],
+    "topImports": ["Crude Oil", "Cars", "Refined Petroleum"],
+    "majorTradingPartners": ["Germany", "United States", "Italy", "Spain", "Belgium"]
+  },
+  "alliances": {
+    "primaryBlock": "NATO / EU",
+    "alliances": ["NATO", "European Union Defense Framework", "UN Security Council"],
+    "strategicPartners": ["Germany", "United States", "India", "Greece", "UAE"]
+  }
+}

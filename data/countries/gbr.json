@@ -1,0 +1,51 @@
+{
+  "id": "GBR",
+  "name": "United Kingdom",
+  "officialName": "United Kingdom of Great Britain and Northern Ireland",
+  "flagUrl": "https://flagcdn.com/w160/gb.png",
+  "capital": "London",
+  "region": "Europe",
+  "subregion": "Northern Europe",
+  "population": 67736802,
+  "gdpNominalUsd": 3340,
+  "gdpPerCapitaUsd": 49295,
+  "militaryRank": 5,
+  "defenseBudgetUsd": 68,
+  "hasDetailedData": true,
+  "summary": "The United Kingdom is a founding NATO member, UN Security Council permanent member, and blue-water naval power operating two Queen Elizabeth-class aircraft carriers and Vanguard-class nuclear ballistic missile submarines.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 664,
+      "fighters": 119,
+      "attackHelicopters": 40
+    },
+    "landForces": {
+      "tanks": 213,
+      "armoredVehicles": 27204,
+      "artillery": 138
+    },
+    "navalForces": {
+      "totalAssets": 117,
+      "aircraftCarriers": 2,
+      "submarines": 10,
+      "destroyers": 6
+    },
+    "personnel": {
+      "activeDuty": 184860,
+      "reserves": 32400,
+      "paramilitary": 0
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 0.3,
+    "inflationPercent": 2.3,
+    "topExports": ["Cars", "Gas Turbines", "Gold", "Crude Oil", "Financial Services"],
+    "topImports": ["Cars", "Refined Petroleum", "Broadcasting Equipment"],
+    "majorTradingPartners": ["United States", "Germany", "Netherlands", "China", "France"]
+  },
+  "alliances": {
+    "primaryBlock": "NATO",
+    "alliances": ["NATO", "AUKUS", "Five Eyes", "Commonwealth of Nations"],
+    "strategicPartners": ["United States", "France", "Japan", "Australia", "Ukraine"]
+  }
+}
