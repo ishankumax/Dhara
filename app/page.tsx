@@ -132,7 +132,7 @@ function DharaDashboardContent() {
         )}
       </main>
 
-      {/* Floating Bottom Pill Navbar & Status Bar */}
+      {/* Floating Bottom Pill Navbar & Dynamic Timezone Status Bar */}
       <BottomNavbar
         activeCountryId={activeCountryId}
         compareCountryId={compareCountryId}

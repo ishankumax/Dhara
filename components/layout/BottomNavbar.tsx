@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Globe, ArrowRightLeft, Palette, Sun, Moon, Shield, Clock } from 'lucide-react';
 import { AccentColor, ThemeMode } from '@/types';
+import { getCountryTime } from '@/lib/timezones';
 
 interface BottomNavbarProps {
   activeCountryId: string;
@@ -18,9 +19,9 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
   const [theme, setTheme] = useState<ThemeMode>('dark');
   const [accent, setAccent] = useState<AccentColor>('amber');
   const [showAccentPicker, setShowAccentPicker] = useState(false);
-  const [currentTime, setCurrentTime] = useState<string>('');
-  const [currentDate, setCurrentDate] = useState<string>('');
-  const [currentDay, setCurrentDay] = useState<string>('');
+
+  // Dynamic Country Timezone state
+  const [localTimeInfo, setLocalTimeInfo] = useState(() => getCountryTime(activeCountryId));
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -30,32 +31,16 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
     document.documentElement.setAttribute('data-accent', accent);
   }, [accent]);
 
-  // Live Status Bar Clock Updates
+  // Live Clock Updates linked to active country's timezone
   useEffect(() => {
     const updateClock = () => {
-      const now = new Date();
-      setCurrentTime(
-        now.toLocaleTimeString('en-US', {
-          hour: '2-digit',
-          minute: '2-digit',
-          hour12: true,
-        }) + ' IST'
-      );
-
-      const day = now.toLocaleDateString('en-US', { weekday: 'short' });
-      const date = now.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-      });
-      setCurrentDate(date);
-      setCurrentDay(day);
+      setLocalTimeInfo(getCountryTime(activeCountryId));
     };
 
     updateClock();
     const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [activeCountryId]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -103,7 +88,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
           </div>
         )}
 
-        {/* Floating Pill Container (Exact Reference Styling) */}
+        {/* Floating Pill Container */}
         <div className="flex items-center gap-2 p-1.5 bg-[var(--bg-secondary)]/90 border border-[var(--border-color)] rounded-full backdrop-blur-2xl shadow-2xl transition-all duration-300 ring-1 ring-white/10">
           {/* Active Workspace / View Pill */}
           <button
@@ -162,7 +147,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
         </div>
       </div>
 
-      {/* 2. Fixed Bottom Status Bar (Exact Reference Footer Styling) */}
+      {/* 2. Fixed Bottom Status Bar with Dynamic Country Time Zone Badge */}
       <div className="w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] px-4 lg:px-8 py-1.5 pointer-events-auto flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)] tracking-wider">
         {/* Left: Progress / Data Coverage Bar */}
         <div className="flex items-center space-x-3">
@@ -183,13 +168,16 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
           </span>
         </div>
 
-        {/* Right: Live Clock & Calendar */}
-        <div className="flex items-center space-x-3">
-          <span className="font-bold text-[var(--text-primary)]">{currentTime}</span>
+        {/* Right: Selected Country Dynamic Local Time Badge */}
+        <div className="flex items-center space-x-2.5">
+          <div className="flex items-center space-x-1.5 bg-[var(--accent-muted)] border border-[var(--accent-primary)]/40 px-2.5 py-0.5 rounded-md text-[var(--accent-primary)] font-extrabold shadow-xs">
+            <Clock className="w-3 h-3 animate-spin-slow" />
+            <span>{activeCountryId}: {localTimeInfo.timeStr}</span>
+          </div>
           <span className="text-[var(--border-color)]">|</span>
-          <span>{currentDate}</span>
+          <span className="text-[var(--text-primary)]">{localTimeInfo.dateStr}</span>
           <span className="text-[var(--border-color)]">|</span>
-          <span className="text-[var(--accent-primary)] font-bold uppercase">{currentDay} #30</span>
+          <span className="text-[var(--accent-primary)] font-bold uppercase">{localTimeInfo.dayStr}</span>
         </div>
       </div>
     </div>

@@ -15,35 +15,19 @@ export const TopographicBackground: React.FC = () => {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    let mouseX = width / 2;
-    let mouseY = height / 2;
-    let targetMouseX = width / 2;
-    let targetMouseY = height / 2;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      targetMouseX = e.clientX;
-      targetMouseY = e.clientY;
-    };
-
     const handleResize = () => {
       if (!canvas) return;
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('resize', handleResize);
 
-    // Number of contour layers
     const numLines = 45;
     let time = 0;
 
     const render = () => {
-      time += 0.005;
-
-      // Smooth mouse interpolation
-      mouseX += (targetMouseX - mouseX) * 0.05;
-      mouseY += (targetMouseY - mouseY) * 0.05;
+      time += 0.003; // Gentle ambient animation
 
       ctx.clearRect(0, 0, width, height);
 
@@ -53,10 +37,12 @@ export const TopographicBackground: React.FC = () => {
 
       ctx.lineWidth = 1;
 
-      // Render Topographic Contour Lines
+      // Render Static Topographic Contour Lines (No mouse tracking)
+      const cx = width / 2;
+      const cy = height / 2;
+
       for (let i = 0; i < numLines; i++) {
         const radiusBase = (i + 1) * 22;
-        const scale = i * 0.08;
 
         ctx.beginPath();
         const numPoints = 80;
@@ -64,14 +50,10 @@ export const TopographicBackground: React.FC = () => {
         for (let j = 0; j <= numPoints; j++) {
           const angle = (j / numPoints) * Math.PI * 2;
 
-          // Organic Perlin-like mathematical terrain distortion
+          // Gentle static terrain waves
           const distortion1 = Math.sin(angle * 3 + time + i * 0.3) * 25;
           const distortion2 = Math.cos(angle * 5 - time * 0.8 + i * 0.2) * 15;
           const distortion3 = Math.sin(angle * 2 + time * 1.2) * 35;
-
-          // Distance to interactive mouse cursor
-          const cx = width / 2 + (mouseX - width / 2) * (0.1 + scale * 0.05);
-          const cy = height / 2 + (mouseY - height / 2) * (0.1 + scale * 0.05);
 
           const r = radiusBase + distortion1 + distortion2 + distortion3;
           const x = cx + Math.cos(angle) * r;
@@ -86,22 +68,11 @@ export const TopographicBackground: React.FC = () => {
 
         ctx.closePath();
 
-        // Calculate opacity based on layer depth
-        const opacity = Math.max(0.04, 0.25 - (i / numLines) * 0.2);
+        const opacity = Math.max(0.04, 0.22 - (i / numLines) * 0.18);
         ctx.strokeStyle = accentColor;
         ctx.globalAlpha = opacity;
         ctx.stroke();
       }
-
-      // Cursor Interactive Elevation Radial Glow
-      const gradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 300);
-      gradient.addColorStop(0, accentColor);
-      gradient.addColorStop(1, 'transparent');
-      ctx.fillStyle = gradient;
-      ctx.globalAlpha = 0.08;
-      ctx.beginPath();
-      ctx.arc(mouseX, mouseY, 300, 0, Math.PI * 2);
-      ctx.fill();
 
       animationFrameId = requestAnimationFrame(render);
     };
@@ -109,7 +80,6 @@ export const TopographicBackground: React.FC = () => {
     render();
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animationFrameId);
     };

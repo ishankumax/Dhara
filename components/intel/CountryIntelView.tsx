@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Shield,
   TrendingUp,
@@ -11,8 +11,10 @@ import {
   Users,
   Anchor,
   Zap,
+  Clock,
 } from 'lucide-react';
 import { CountryIntelProfile } from '@/types';
+import { getCountryTime } from '@/lib/timezones';
 
 interface CountryIntelViewProps {
   country: CountryIntelProfile | null;
@@ -28,6 +30,22 @@ export const CountryIntelView: React.FC<CountryIntelViewProps> = ({
   const [activeTab, setActiveTab] = useState<'overview' | 'military' | 'economy' | 'alliances'>(
     'overview'
   );
+
+  // Dynamic Country Timezone state for Intel Panel
+  const [localTimeInfo, setLocalTimeInfo] = useState(() =>
+    country ? getCountryTime(country.id) : null
+  );
+
+  useEffect(() => {
+    if (!country) return;
+    const updateClock = () => {
+      setLocalTimeInfo(getCountryTime(country.id));
+    };
+
+    updateClock();
+    const interval = setInterval(updateClock, 1000);
+    return () => clearInterval(interval);
+  }, [country?.id]);
 
   if (!country) {
     return (
@@ -84,6 +102,26 @@ export const CountryIntelView: React.FC<CountryIntelViewProps> = ({
         </button>
       </div>
 
+      {/* Selected Country Accent Highlighted Local Time & Timezone Widget */}
+      {localTimeInfo && (
+        <div className="mb-3 bg-[var(--accent-muted)] border border-[var(--accent-primary)]/40 p-2.5 rounded-xl flex items-center justify-between shadow-xs">
+          <div className="flex items-center space-x-2">
+            <Clock className="w-4 h-4 text-[var(--accent-primary)] animate-pulse" />
+            <div>
+              <div className="text-[9px] font-mono uppercase text-[var(--accent-primary)] font-bold">
+                Local Capital Timezone • {localTimeInfo.tzName}
+              </div>
+              <div className="text-xs font-mono font-extrabold text-[var(--text-primary)]">
+                {localTimeInfo.timeStr} ({localTimeInfo.dayStr})
+              </div>
+            </div>
+          </div>
+          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[var(--accent-primary)] text-white shadow-2xs">
+            {localTimeInfo.tzCode}
+          </span>
+        </div>
+      )}
+
       {/* Navigation Tabs */}
       <div className="flex items-center space-x-1 mb-3 bg-[var(--bg-secondary)]/40 p-1 rounded-xl">
         {tabs.map((tab) => {
@@ -108,7 +146,7 @@ export const CountryIntelView: React.FC<CountryIntelViewProps> = ({
       </div>
 
       {/* Tab Panel Contents (Scrollable Container) */}
-      <div className="flex-1 overflow-y-auto space-y-3 pr-1 max-h-[550px]">
+      <div className="flex-1 overflow-y-auto space-y-3 pr-1 max-h-[500px]">
         {/* Tab 1: Overview */}
         {activeTab === 'overview' && (
           <div className="space-y-3">
