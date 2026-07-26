@@ -1,0 +1,51 @@
+{
+  "id": "RUS",
+  "name": "Russia",
+  "officialName": "Russian Federation",
+  "flagUrl": "https://flagcdn.com/w160/ru.png",
+  "capital": "Moscow",
+  "region": "Europe / Asia",
+  "subregion": "Eastern Europe",
+  "population": 144444359,
+  "gdpNominalUsd": 1860,
+  "gdpPerCapitaUsd": 12880,
+  "militaryRank": 2,
+  "defenseBudgetUsd": 109,
+  "hasDetailedData": true,
+  "summary": "Russia maintains the world's largest inventory of nuclear warheads, extensive armored land forces, advanced air defense systems (S-400/S-500), and formidable strategic nuclear submarine fleets.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 4255,
+      "fighters": 809,
+      "attackHelicopters": 559
+    },
+    "landForces": {
+      "tanks": 12566,
+      "armoredVehicles": 161382,
+      "artillery": 17825
+    },
+    "navalForces": {
+      "totalAssets": 598,
+      "aircraftCarriers": 1,
+      "submarines": 65,
+      "destroyers": 15
+    },
+    "personnel": {
+      "activeDuty": 1320000,
+      "reserves": 2000000,
+      "paramilitary": 250000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 3.6,
+    "inflationPercent": 7.4,
+    "topExports": ["Crude Petroleum", "Refined Petroleum", "Wheat", "Coal", "Fertilizers"],
+    "topImports": ["Machinery & Vehicles", "Pharmaceuticals", "Plastics", "Electronics"],
+    "majorTradingPartners": ["China", "India", "Turkey", "Kazakhstan", "Belarus"]
+  },
+  "alliances": {
+    "primaryBlock": "CSTO / BRICS",
+    "alliances": ["Collective Security Treaty Organization (CSTO)", "BRICS+", "SCO"],
+    "strategicPartners": ["China", "India", "Belarus", "Iran", "North Korea"]
+  }
+}

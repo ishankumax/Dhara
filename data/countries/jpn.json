@@ -1,0 +1,51 @@
+{
+  "id": "JPN",
+  "name": "Japan",
+  "officialName": "Japan",
+  "flagUrl": "https://flagcdn.com/w160/jp.png",
+  "capital": "Tokyo",
+  "region": "Asia",
+  "subregion": "Eastern Asia",
+  "population": 124500000,
+  "gdpNominalUsd": 4210,
+  "gdpPerCapitaUsd": 33800,
+  "militaryRank": 7,
+  "defenseBudgetUsd": 50,
+  "hasDetailedData": true,
+  "summary": "Japan's Self-Defense Forces (JSDF) represent one of the most technologically advanced maritime and air defense forces in Asia, operating Aegis destroyers, Izumo-class carrier modifications, and F-35 stealth fighters.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 1459,
+      "fighters": 275,
+      "attackHelicopters": 119
+    },
+    "landForces": {
+      "tanks": 1004,
+      "armoredVehicles": 11090,
+      "artillery": 700
+    },
+    "navalForces": {
+      "totalAssets": 155,
+      "aircraftCarriers": 2,
+      "submarines": 22,
+      "destroyers": 36
+    },
+    "personnel": {
+      "activeDuty": 247150,
+      "reserves": 56000,
+      "paramilitary": 14000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 1.9,
+    "inflationPercent": 2.5,
+    "topExports": ["Cars", "Integrated Circuits", "Machinery", "Vehicle Parts", "Medical Instruments"],
+    "topImports": ["Crude Petroleum", "Petroleum Gas", "Integrated Circuits"],
+    "majorTradingPartners": ["China", "United States", "South Korea", "Taiwan", "Australia"]
+  },
+  "alliances": {
+    "primaryBlock": "Quad / US Security Treaty",
+    "alliances": ["US-Japan Security Treaty", "Quad", "Comprehensive and Progressive Agreement for Trans-Pacific Partnership (CPTPP)"],
+    "strategicPartners": ["United States", "Australia", "India", "South Korea", "United Kingdom"]
+  }
+}

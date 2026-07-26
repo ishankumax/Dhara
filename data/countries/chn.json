@@ -1,0 +1,51 @@
+{
+  "id": "CHN",
+  "name": "China",
+  "officialName": "People's Republic of China",
+  "flagUrl": "https://flagcdn.com/w160/cn.png",
+  "capital": "Beijing",
+  "region": "Asia",
+  "subregion": "Eastern Asia",
+  "population": 1411750000,
+  "gdpNominalUsd": 17790,
+  "gdpPerCapitaUsd": 12600,
+  "militaryRank": 3,
+  "defenseBudgetUsd": 227,
+  "hasDetailedData": true,
+  "summary": "China operates the world's largest standing army and the largest naval fleet by hull count, rapidly modernizing its military technology, carrier strike capabilities, and hypersonic missile arsenals.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 3304,
+      "fighters": 1207,
+      "attackHelicopters": 281
+    },
+    "landForces": {
+      "tanks": 5000,
+      "armoredVehicles": 174300,
+      "artillery": 8200
+    },
+    "navalForces": {
+      "totalAssets": 730,
+      "aircraftCarriers": 3,
+      "submarines": 61,
+      "destroyers": 49
+    },
+    "personnel": {
+      "activeDuty": 2035000,
+      "reserves": 510000,
+      "paramilitary": 625000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 5.2,
+    "inflationPercent": 0.2,
+    "topExports": ["Broadcasting Equipment", "Computers", "Integrated Circuits", "Electric Vehicles", "Solar Panels"],
+    "topImports": ["Crude Petroleum", "Integrated Circuits", "Iron Ore", "Gold"],
+    "majorTradingPartners": ["United States", "Japan", "South Korea", "Vietnam", "Russia"]
+  },
+  "alliances": {
+    "primaryBlock": "BRICS / SCO",
+    "alliances": ["BRICS+", "Shanghai Cooperation Organisation (SCO)", "Belt and Road Initiative"],
+    "strategicPartners": ["Russia", "Pakistan", "North Korea", "Iran", "Saudi Arabia"]
+  }
+}
