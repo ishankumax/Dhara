@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Compass, ZoomIn, ZoomOut, Layers, Shield, DollarSign, Eye } from 'lucide-react';
+import { Compass, Layers, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 import { CountryOverview } from '@/types';
 
 interface VectorMapStageProps {
@@ -17,279 +17,254 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
   compareCountryId,
   onSelectCountry,
 }) => {
-  const [hoveredCountry, setHoveredCountry] = useState<CountryOverview | null>(null);
-  const [zoomLevel, setZoomLevel] = useState<number>(1);
-  const [showProvinces, setShowProvinces] = useState<boolean>(true);
+  const [zoomLevel, setZoomLevel] = useState(1);
+  const [showBoundaries, setShowBoundaries] = useState(false);
+  const [hoveredCountry, setHoveredCountry] = useState<string | null>(null);
 
-  // High-precision SVG path definitions for national boundaries
-  const svgMapPaths: { id: string; name: string; path: string }[] = [
-    {
-      id: 'USA',
-      name: 'United States',
-      path: 'M 150 180 L 270 170 L 280 230 L 250 260 L 170 250 Z M 110 140 L 140 140 L 130 160 Z',
+  // SVG Geo Path Map Nodes
+  const countryPathNodes: Record<
+    string,
+    { d: string; label: string; cx: number; cy: number; boundaries?: string[] }
+  > = {
+    USA: {
+      d: 'M 150 180 L 270 180 L 260 270 L 140 260 Z M 110 110 L 140 110 L 130 140 L 100 140 Z',
+      label: 'USA',
+      cx: 200,
+      cy: 220,
+      boundaries: [
+        'M 150 180 L 210 180 L 210 265',
+        'M 210 180 L 270 180',
+        'M 180 220 L 260 220',
+      ],
     },
-    {
-      id: 'CHN',
-      name: 'China',
-      path: 'M 650 200 L 760 190 L 780 260 L 710 290 L 640 250 Z',
+    CHN: {
+      d: 'M 650 190 L 760 170 L 780 270 L 680 290 L 620 250 Z',
+      label: 'CHN',
+      cx: 700,
+      cy: 230,
+      boundaries: [
+        'M 650 190 L 710 230 L 780 270',
+        'M 700 175 L 700 285',
+        'M 630 250 L 750 250',
+      ],
     },
-    {
-      id: 'IND',
-      name: 'India',
-      path: 'M 610 260 L 660 250 L 670 320 L 630 350 L 600 290 Z',
+    IND: {
+      d: 'M 590 280 L 660 260 L 670 360 L 610 390 Z',
+      label: 'IND',
+      cx: 630,
+      cy: 320,
+      boundaries: [
+        'M 590 280 L 630 330 L 670 360',
+        'M 610 320 L 660 320',
+        'M 630 330 L 610 390',
+      ],
     },
-    {
-      id: 'RUS',
-      name: 'Russia',
-      path: 'M 480 100 L 800 90 L 820 180 L 520 180 Z',
+    RUS: {
+      d: 'M 520 80 L 800 70 L 830 170 L 510 160 Z',
+      label: 'RUS',
+      cx: 660,
+      cy: 110,
+      boundaries: [
+        'M 520 80 L 660 80 L 660 165',
+        'M 660 80 L 800 70',
+        'M 590 120 L 760 120',
+      ],
     },
-    {
-      id: 'GBR',
-      name: 'United Kingdom',
-      path: 'M 450 145 L 465 140 L 468 165 L 452 165 Z',
+    GBR: {
+      d: 'M 450 150 L 470 140 L 475 180 L 455 185 Z',
+      label: 'GBR',
+      cx: 460,
+      cy: 160,
+      boundaries: ['M 450 150 L 475 180'],
     },
-    {
-      id: 'FRA',
-      name: 'France',
-      path: 'M 460 175 L 490 170 L 495 200 L 465 205 Z',
+    FRA: {
+      d: 'M 460 190 L 500 185 L 505 230 L 465 235 Z',
+      label: 'FRA',
+      cx: 480,
+      cy: 210,
+      boundaries: ['M 460 190 L 505 230', 'M 480 187 L 480 232'],
     },
-    {
-      id: 'JPN',
-      name: 'Japan',
-      path: 'M 800 210 L 820 200 L 815 250 L 795 240 Z',
+    JPN: {
+      d: 'M 810 200 L 830 190 L 835 240 L 815 250 Z',
+      label: 'JPN',
+      cx: 820,
+      cy: 220,
+      boundaries: ['M 810 200 L 835 240'],
     },
-    {
-      id: 'DEU',
-      name: 'Germany',
-      path: 'M 490 155 L 515 155 L 515 180 L 490 180 Z',
+    CAN: {
+      d: 'M 130 70 L 290 60 L 280 170 L 140 170 Z',
+      label: 'CAN',
+      cx: 210,
+      cy: 115,
+      boundaries: [
+        'M 130 70 L 210 115 L 280 170',
+        'M 210 65 L 210 170',
+      ],
     },
-    {
-      id: 'BRA',
-      name: 'Brazil',
-      path: 'M 300 320 L 370 310 L 380 410 L 310 400 Z',
+    AUS: {
+      d: 'M 740 370 L 840 360 L 830 460 L 730 450 Z',
+      label: 'AUS',
+      cx: 780,
+      cy: 410,
+      boundaries: [
+        'M 740 370 L 780 410 L 830 460',
+        'M 780 365 L 780 455',
+      ],
     },
-    {
-      id: 'AUS',
-      name: 'Australia',
-      path: 'M 720 370 L 820 370 L 810 450 L 710 440 Z',
+    BRA: {
+      d: 'M 280 320 L 370 310 L 360 440 L 270 410 Z',
+      label: 'BRA',
+      cx: 320,
+      cy: 370,
+      boundaries: [
+        'M 280 320 L 320 370 L 360 440',
+        'M 320 315 L 320 425',
+      ],
     },
-    {
-      id: 'CAN',
-      name: 'Canada',
-      path: 'M 140 80 L 290 70 L 280 160 L 150 160 Z',
-    },
-  ];
-
-  // Sub-national / State / Province internal boundary lines
-  const provinceBoundaryLines = [
-    // USA Internal State Lines (Pacific, Midwest, East Coast)
-    { d: 'M 190 175 L 190 255', countryId: 'USA', name: 'West Coast Div' },
-    { d: 'M 230 172 L 230 258', countryId: 'USA', name: 'Midwest Div' },
-    // China Internal Province Boundaries
-    { d: 'M 690 195 L 690 275', countryId: 'CHN', name: 'Inner Provinces' },
-    { d: 'M 730 192 L 730 270', countryId: 'CHN', name: 'Coastal Provinces' },
-    // India Internal State Boundaries
-    { d: 'M 635 255 L 635 335', countryId: 'IND', name: 'Deccan & Northern States' },
-    // Russia Federal District Boundaries
-    { d: 'M 580 95 L 580 180', countryId: 'RUS', name: 'Ural Federal Border' },
-    { d: 'M 690 92 L 690 180', countryId: 'RUS', name: 'Siberian Federal Border' },
-  ];
-
-  const handleCountryHover = (id: string) => {
-    const found = countries.find((c) => c.id === id);
-    setHoveredCountry(found || null);
   };
 
+  const activeCountry = countries.find((c) => c.id === activeCountryId);
+
   return (
-    <div className="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl p-4 flex flex-col h-full shadow-sm relative overflow-hidden">
-      {/* Top Map Stage Toolbar */}
-      <div className="flex items-center justify-between mb-2 z-10">
+    <div className="bg-transparent border-none p-2 flex flex-col h-full relative">
+      {/* Header Controls Overlay */}
+      <div className="flex items-center justify-between mb-3">
         <div className="flex items-center space-x-2">
           <Compass className="w-4 h-4 text-[var(--accent-primary)] animate-spin-slow" />
-          <h2 className="font-semibold text-sm text-[var(--text-primary)] uppercase tracking-wider">
+          <h2 className="font-semibold text-xs text-[var(--text-primary)] uppercase tracking-widest">
             Interactive Strategic Geo-Stage
           </h2>
         </div>
 
-        {/* Map Layers & Zoom Controls */}
-        <div className="flex items-center space-x-2">
-          {/* Sub-national Boundaries Layer Toggle */}
+        {/* Map Control Buttons */}
+        <div className="flex items-center space-x-1">
           <button
-            onClick={() => setShowProvinces(!showProvinces)}
-            title="Toggle State / Province Boundaries"
-            className={`flex items-center space-x-1 px-2.5 py-1 rounded-lg text-xs border transition-colors ${
-              showProvinces
-                ? 'bg-[var(--accent-muted)] text-[var(--accent-primary)] border-[var(--accent-primary)] font-semibold'
-                : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)] border-[var(--border-color)]'
+            onClick={() => setShowBoundaries(!showBoundaries)}
+            className={`flex items-center space-x-1 px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all ${
+              showBoundaries
+                ? 'bg-[var(--accent-primary)] text-white shadow-sm'
+                : 'bg-[var(--bg-secondary)]/50 text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)]'
             }`}
           >
-            <Layers className="w-3.5 h-3.5" />
+            <Layers className="w-3 h-3" />
             <span>State / Province Lines</span>
           </button>
 
-          {/* Zoom Controls */}
-          <div className="flex items-center space-x-1 bg-[var(--bg-primary)] p-1 rounded-lg border border-[var(--border-color)]">
+          <div className="flex items-center bg-[var(--bg-secondary)]/50 border border-[var(--border-color)]/30 rounded-lg p-0.5 backdrop-blur-sm">
             <button
               onClick={() => setZoomLevel((z) => Math.min(z + 0.2, 2))}
+              className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               title="Zoom In"
-              className="p-1 rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
             >
               <ZoomIn className="w-3.5 h-3.5" />
             </button>
-            <button
-              onClick={() => setZoomLevel(1)}
-              title="Reset View"
-              className="px-1.5 py-0.5 text-[10px] font-mono rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
-            >
+            <span className="text-[10px] font-mono text-[var(--text-muted)] px-1">
               {Math.round(zoomLevel * 100)}%
-            </button>
+            </span>
             <button
               onClick={() => setZoomLevel((z) => Math.max(z - 0.2, 0.8))}
+              className="p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               title="Zoom Out"
-              className="p-1 rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
             >
               <ZoomOut className="w-3.5 h-3.5" />
             </button>
+
+            {zoomLevel !== 1 && (
+              <button
+                onClick={() => setZoomLevel(1)}
+                className="p-1 text-[var(--accent-primary)] hover:opacity-80 transition-opacity"
+                title="Reset Zoom"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+              </button>
+            )}
           </div>
         </div>
       </div>
 
-      {/* SVG Canvas Container */}
-      <div className="relative flex-1 min-h-[360px] bg-[var(--bg-primary)] rounded-lg border border-[var(--border-color)] overflow-hidden flex items-center justify-center p-4">
-        {/* Subtle Map Grid lines */}
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#888_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+      {/* Interactive Vector SVG Canvas Container (Borderless & Seamless) */}
+      <div className="flex-1 bg-[var(--bg-secondary)]/30 border-none rounded-2xl overflow-hidden relative flex items-center justify-center p-2 backdrop-blur-xs">
+        {/* Subtle Map Grid Pattern */}
+        <div className="absolute inset-0 bg-[radial-gradient(var(--border-color)_1px,transparent_1px)] [background-size:24px_24px] opacity-15 pointer-events-none" />
 
         <svg
           viewBox="0 0 950 500"
-          className="w-full h-full transition-transform duration-300 ease-out"
+          className="w-full h-full max-h-[550px] transition-transform duration-300 ease-out"
           style={{ transform: `scale(${zoomLevel})` }}
         >
-          {/* Latitude / Longitude lines */}
-          <line x1="0" y1="250" x2="950" y2="250" stroke="var(--border-color)" strokeWidth="0.5" strokeDasharray="4,4" />
-          <line x1="475" y1="0" x2="475" y2="500" stroke="var(--border-color)" strokeWidth="0.5" strokeDasharray="4,4" />
-
-          {/* Render SVG Country Paths */}
-          {svgMapPaths.map((item) => {
-            const isActive = item.id === activeCountryId;
-            const isComparing = item.id === compareCountryId;
+          {/* Render All Country Vector Paths */}
+          {Object.entries(countryPathNodes).map(([id, node]) => {
+            const isActive = id === activeCountryId;
+            const isCompare = id === compareCountryId;
 
             return (
-              <g key={item.id}>
+              <g key={id}>
+                {/* Main Territory Polygon */}
                 <path
-                  d={item.path}
-                  onClick={() => onSelectCountry(item.id)}
-                  onMouseEnter={() => handleCountryHover(item.id)}
+                  d={node.d}
+                  onClick={() => onSelectCountry(id)}
+                  onMouseEnter={() => setHoveredCountry(id)}
                   onMouseLeave={() => setHoveredCountry(null)}
-                  className={`cursor-pointer transition-all duration-200 ${
+                  className={`cursor-pointer transition-all duration-300 ${
                     isActive
                       ? 'fill-[var(--accent-primary)] stroke-white stroke-[2px] filter drop-shadow-md'
-                      : isComparing
-                      ? 'fill-amber-500 stroke-white stroke-[2px] filter drop-shadow-md'
-                      : 'fill-[var(--bg-tertiary)] stroke-[var(--border-color)] hover:fill-[var(--accent-muted)] hover:stroke-[var(--accent-primary)]'
+                      : isCompare
+                      ? 'fill-amber-500 stroke-amber-200 stroke-[2px] filter drop-shadow-md'
+                      : hoveredCountry === id
+                      ? 'fill-[var(--accent-hover)]/70 stroke-[var(--accent-primary)] stroke-1'
+                      : 'fill-[var(--bg-tertiary)]/70 stroke-[var(--border-color)]/50 stroke-1 hover:fill-[var(--bg-tertiary)]'
                   }`}
                 />
+
+                {/* Sub-National State / Province Boundaries Layer Overlay */}
+                {showBoundaries && node.boundaries && (
+                  <g className="pointer-events-none opacity-60">
+                    {node.boundaries.map((bPath, idx) => (
+                      <path
+                        key={idx}
+                        d={bPath}
+                        className="stroke-[var(--text-muted)] stroke-[0.75px] stroke-dasharray-[2_2]"
+                        fill="none"
+                      />
+                    ))}
+                  </g>
+                )}
+
                 {/* Country Code Label */}
                 <text
-                  x={getPathCenterX(item.path)}
-                  y={getPathCenterY(item.path)}
-                  fill={isActive || isComparing ? '#FFFFFF' : 'var(--text-secondary)'}
-                  fontSize="10"
-                  fontWeight="bold"
+                  x={node.cx}
+                  y={node.cy}
+                  onClick={() => onSelectCountry(id)}
+                  className={`cursor-pointer text-[10px] font-mono font-bold pointer-events-none transition-all ${
+                    isActive || isCompare
+                      ? 'fill-white font-extrabold text-[12px]'
+                      : 'fill-[var(--text-muted)] group-hover:fill-[var(--text-primary)]'
+                  }`}
                   textAnchor="middle"
-                  className="pointer-events-none select-none font-mono"
+                  alignmentBaseline="middle"
                 >
-                  {item.id}
+                  {node.label}
                 </text>
               </g>
             );
           })}
-
-          {/* Render State / Province Boundaries Overlay when Enabled */}
-          {showProvinces &&
-            provinceBoundaryLines.map((line, idx) => (
-              <path
-                key={idx}
-                d={line.d}
-                stroke={
-                  line.countryId === activeCountryId
-                    ? '#FFFFFF'
-                    : 'var(--text-muted)'
-                }
-                strokeWidth="1"
-                strokeDasharray="2,2"
-                className="pointer-events-none opacity-60"
-              />
-            ))}
         </svg>
 
-        {/* Hover Tooltip Card */}
-        {hoveredCountry && (
-          <div className="absolute bottom-4 left-4 bg-[var(--bg-secondary)] border border-[var(--border-color)] p-3 rounded-lg shadow-xl z-20 min-w-[200px] backdrop-blur-sm">
-            <div className="flex items-center space-x-2 mb-1">
-              <img
-                src={hoveredCountry.flagUrl}
-                alt={hoveredCountry.name}
-                className="w-5 h-3.5 object-cover rounded border"
-              />
-              <span className="font-semibold text-xs text-[var(--text-primary)]">
-                {hoveredCountry.name}
-              </span>
-            </div>
-            <div className="grid grid-cols-2 gap-2 mt-2 pt-2 border-t border-[var(--border-color)] text-[11px]">
-              <div>
-                <span className="text-[var(--text-muted)] block">Military Rank</span>
-                <span className="font-mono font-bold text-[var(--accent-primary)]">
-                  #{hoveredCountry.militaryRank}
-                </span>
-              </div>
-              <div>
-                <span className="text-[var(--text-muted)] block">Nominal GDP</span>
-                <span className="font-mono font-bold text-[var(--text-primary)]">
-                  ${hoveredCountry.gdpNominalUsd}B
-                </span>
-              </div>
+        {/* Floating Active Selection Badge (Bottom Left Overlay) */}
+        {activeCountry && (
+          <div className="absolute bottom-3 left-3 bg-[var(--bg-secondary)]/90 border border-[var(--border-color)]/40 rounded-xl px-3 py-1.5 backdrop-blur-md shadow-md flex items-center space-x-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-[var(--accent-primary)] animate-pulse" />
+            <div className="text-[11px] font-mono text-[var(--text-primary)]">
+              Active Selection: <span className="font-bold text-[var(--accent-primary)]">{activeCountry.name} ({activeCountry.id})</span>
             </div>
           </div>
         )}
-      </div>
 
-      {/* Footer Legend */}
-      <div className="flex items-center justify-between mt-3 text-[11px] text-[var(--text-secondary)]">
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-1.5">
-            <span className="w-3 h-3 rounded bg-[var(--accent-primary)] border border-white" />
-            <span>Active Selection ({activeCountryId})</span>
-          </div>
-          {compareCountryId && (
-            <div className="flex items-center space-x-1.5">
-              <span className="w-3 h-3 rounded bg-amber-500 border border-white" />
-              <span>Comparison Target ({compareCountryId})</span>
-            </div>
-          )}
+        {/* Legend Indicator */}
+        <div className="absolute bottom-3 right-3 text-[10px] font-mono text-[var(--text-muted)] bg-[var(--bg-secondary)]/80 px-2 py-1 rounded-md backdrop-blur-xs">
+          {showBoundaries ? 'Sub-National Overlay Active' : 'National Boundaries Only'}
         </div>
-        <span className="font-mono text-[var(--text-muted)]">
-          {showProvinces ? 'State / Province Grid Active' : 'National Boundaries Only'}
-        </span>
       </div>
     </div>
   );
 };
-
-// SVG Path center coordinate approximation helper
-function getPathCenterX(path: string): number {
-  const matches = path.match(/\d+/g);
-  if (!matches) return 475;
-  const numbers = matches.map(Number);
-  const xCoords = numbers.filter((_, i) => i % 2 === 0);
-  const sum = xCoords.reduce((a, b) => a + b, 0);
-  return sum / (xCoords.length || 1);
-}
-
-function getPathCenterY(path: string): number {
-  const matches = path.match(/\d+/g);
-  if (!matches) return 250;
-  const numbers = matches.map(Number);
-  const yCoords = numbers.filter((_, i) => i % 2 === 1);
-  const sum = yCoords.reduce((a, b) => a + b, 0);
-  return sum / (yCoords.length || 1);
-}

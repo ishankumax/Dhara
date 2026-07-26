@@ -37,12 +37,12 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
   });
 
   return (
-    <div className="bg-[var(--bg-secondary)] border border-[var(--border-color)] rounded-xl p-4 flex flex-col h-full shadow-sm">
+    <div className="bg-transparent border-none p-2 flex flex-col h-full">
       {/* Header Title */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center space-x-2">
           <Globe className="w-4 h-4 text-[var(--accent-primary)]" />
-          <h2 className="font-semibold text-sm text-[var(--text-primary)] uppercase tracking-wider">
+          <h2 className="font-semibold text-xs text-[var(--text-primary)] uppercase tracking-widest">
             {isCompareMode ? 'Select Target for Compare' : 'Global Nations Index'}
           </h2>
         </div>
@@ -59,7 +59,7 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
           placeholder="Search nation or ISO..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full bg-[var(--bg-primary)] border border-[var(--border-color)] rounded-lg pl-8 pr-3 py-2 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors"
+          className="w-full bg-[var(--bg-secondary)]/50 border border-[var(--border-color)]/30 rounded-xl pl-8 pr-3 py-2 text-xs text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-[var(--accent-primary)] transition-colors backdrop-blur-sm"
         />
       </div>
 
@@ -69,10 +69,10 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
           <button
             key={region}
             onClick={() => setRegionFilter(region)}
-            className={`px-2.5 py-1 rounded text-[11px] font-medium transition-colors ${
+            className={`px-3 py-1 rounded-full text-[11px] font-medium transition-all ${
               regionFilter === region
-                ? 'bg-[var(--accent-primary)] text-white font-semibold'
-                : 'bg-[var(--bg-tertiary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                ? 'bg-[var(--accent-primary)] text-white font-semibold shadow-sm'
+                : 'bg-[var(--bg-secondary)]/40 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-secondary)]/70'
             }`}
           >
             {region}
@@ -81,7 +81,7 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
       </div>
 
       {/* Country List Scrollable Container */}
-      <div className="flex-1 overflow-y-auto space-y-2 pr-1 max-h-[550px]">
+      <div className="flex-1 overflow-y-auto space-y-1.5 pr-1 max-h-[550px]">
         {filteredCountries.map((country) => {
           const isActive = country.id === activeCountryId;
           const isComparing = country.id === compareCountryId;
@@ -90,12 +90,12 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
             <div
               key={country.id}
               onClick={() => onSelectCountry(country.id)}
-              className={`group cursor-pointer p-2.5 rounded-lg border transition-all flex items-center justify-between ${
+              className={`group cursor-pointer p-2.5 rounded-xl transition-all flex items-center justify-between ${
                 isActive
-                  ? 'bg-[var(--accent-muted)] border-[var(--accent-primary)] shadow-sm'
+                  ? 'bg-[var(--accent-muted)] border border-[var(--accent-primary)] shadow-sm'
                   : isComparing
-                  ? 'bg-amber-500/10 border-amber-500'
-                  : 'bg-[var(--bg-primary)] border-[var(--border-color)] hover:border-[var(--accent-primary)] hover:bg-[var(--bg-tertiary)]'
+                  ? 'bg-amber-500/15 border border-amber-500'
+                  : 'bg-[var(--bg-secondary)]/40 hover:bg-[var(--bg-secondary)]/80 border border-transparent'
               }`}
             >
               {/* Flag & Name */}
@@ -103,7 +103,7 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
                 <img
                   src={country.flagUrl}
                   alt={country.name}
-                  className="w-7 h-5 object-cover rounded border border-[var(--border-color)] shadow-xs flex-shrink-0"
+                  className="w-7 h-5 object-cover rounded border border-[var(--border-color)]/20 shadow-xs flex-shrink-0"
                 />
                 <div className="min-w-0">
                   <div className="flex items-center space-x-1.5">
@@ -124,7 +124,7 @@ export const CountrySelector: React.FC<CountrySelectorProps> = ({
               <div className="flex items-center space-x-2 flex-shrink-0">
                 <div
                   title={`Global Military Rank: #${country.militaryRank}`}
-                  className="flex items-center space-x-1 px-2 py-0.5 rounded text-[10px] font-mono bg-[var(--bg-tertiary)] text-[var(--text-secondary)] border border-[var(--border-color)]"
+                  className="flex items-center space-x-1 px-2 py-0.5 rounded-full text-[10px] font-mono bg-[var(--bg-tertiary)]/50 text-[var(--text-secondary)]"
                 >
                   <Shield className="w-3 h-3 text-[var(--accent-primary)]" />
                   <span>#{country.militaryRank}</span>
