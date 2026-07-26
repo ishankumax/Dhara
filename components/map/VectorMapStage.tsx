@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Compass, ZoomIn, ZoomOut, Maximize2, Shield, DollarSign } from 'lucide-react';
+import { Compass, ZoomIn, ZoomOut, Layers, Shield, DollarSign, Eye } from 'lucide-react';
 import { CountryOverview } from '@/types';
 
 interface VectorMapStageProps {
@@ -19,13 +19,14 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
 }) => {
   const [hoveredCountry, setHoveredCountry] = useState<CountryOverview | null>(null);
   const [zoomLevel, setZoomLevel] = useState<number>(1);
+  const [showProvinces, setShowProvinces] = useState<boolean>(true);
 
-  // High-precision simplified SVG path definitions for world stage display
+  // High-precision SVG path definitions for national boundaries
   const svgMapPaths: { id: string; name: string; path: string }[] = [
     {
       id: 'USA',
       name: 'United States',
-      path: 'M 150 180 L 270 170 L 280 230 L 250 260 L 170 250 Z M 110 140 L 140 140 L 130 160 Z', // USA mainland + Alaska
+      path: 'M 150 180 L 270 170 L 280 230 L 250 260 L 170 250 Z M 110 140 L 140 140 L 130 160 Z',
     },
     {
       id: 'CHN',
@@ -79,6 +80,21 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
     },
   ];
 
+  // Sub-national / State / Province internal boundary lines
+  const provinceBoundaryLines = [
+    // USA Internal State Lines (Pacific, Midwest, East Coast)
+    { d: 'M 190 175 L 190 255', countryId: 'USA', name: 'West Coast Div' },
+    { d: 'M 230 172 L 230 258', countryId: 'USA', name: 'Midwest Div' },
+    // China Internal Province Boundaries
+    { d: 'M 690 195 L 690 275', countryId: 'CHN', name: 'Inner Provinces' },
+    { d: 'M 730 192 L 730 270', countryId: 'CHN', name: 'Coastal Provinces' },
+    // India Internal State Boundaries
+    { d: 'M 635 255 L 635 335', countryId: 'IND', name: 'Deccan & Northern States' },
+    // Russia Federal District Boundaries
+    { d: 'M 580 95 L 580 180', countryId: 'RUS', name: 'Ural Federal Border' },
+    { d: 'M 690 92 L 690 180', countryId: 'RUS', name: 'Siberian Federal Border' },
+  ];
+
   const handleCountryHover = (id: string) => {
     const found = countries.find((c) => c.id === id);
     setHoveredCountry(found || null);
@@ -95,29 +111,46 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
           </h2>
         </div>
 
-        {/* Zoom & View Controls */}
-        <div className="flex items-center space-x-1 bg-[var(--bg-primary)] p-1 rounded-lg border border-[var(--border-color)]">
+        {/* Map Layers & Zoom Controls */}
+        <div className="flex items-center space-x-2">
+          {/* Sub-national Boundaries Layer Toggle */}
           <button
-            onClick={() => setZoomLevel((z) => Math.min(z + 0.2, 2))}
-            title="Zoom In"
-            className="p-1 rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
+            onClick={() => setShowProvinces(!showProvinces)}
+            title="Toggle State / Province Boundaries"
+            className={`flex items-center space-x-1 px-2.5 py-1 rounded-lg text-xs border transition-colors ${
+              showProvinces
+                ? 'bg-[var(--accent-muted)] text-[var(--accent-primary)] border-[var(--accent-primary)] font-semibold'
+                : 'bg-[var(--bg-tertiary)] text-[var(--text-muted)] border-[var(--border-color)]'
+            }`}
           >
-            <ZoomIn className="w-3.5 h-3.5" />
+            <Layers className="w-3.5 h-3.5" />
+            <span>State / Province Lines</span>
           </button>
-          <button
-            onClick={() => setZoomLevel(1)}
-            title="Reset View"
-            className="px-1.5 py-0.5 text-[10px] font-mono rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
-          >
-            {Math.round(zoomLevel * 100)}%
-          </button>
-          <button
-            onClick={() => setZoomLevel((z) => Math.max(z - 0.2, 0.8))}
-            title="Zoom Out"
-            className="p-1 rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
-          >
-            <ZoomOut className="w-3.5 h-3.5" />
-          </button>
+
+          {/* Zoom Controls */}
+          <div className="flex items-center space-x-1 bg-[var(--bg-primary)] p-1 rounded-lg border border-[var(--border-color)]">
+            <button
+              onClick={() => setZoomLevel((z) => Math.min(z + 0.2, 2))}
+              title="Zoom In"
+              className="p-1 rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
+            >
+              <ZoomIn className="w-3.5 h-3.5" />
+            </button>
+            <button
+              onClick={() => setZoomLevel(1)}
+              title="Reset View"
+              className="px-1.5 py-0.5 text-[10px] font-mono rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
+            >
+              {Math.round(zoomLevel * 100)}%
+            </button>
+            <button
+              onClick={() => setZoomLevel((z) => Math.max(z - 0.2, 0.8))}
+              title="Zoom Out"
+              className="p-1 rounded hover:bg-[var(--bg-tertiary)] text-[var(--text-secondary)]"
+            >
+              <ZoomOut className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -131,7 +164,7 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
           className="w-full h-full transition-transform duration-300 ease-out"
           style={{ transform: `scale(${zoomLevel})` }}
         >
-          {/* Decorative Latitude / Longitude lines */}
+          {/* Latitude / Longitude lines */}
           <line x1="0" y1="250" x2="950" y2="250" stroke="var(--border-color)" strokeWidth="0.5" strokeDasharray="4,4" />
           <line x1="475" y1="0" x2="475" y2="500" stroke="var(--border-color)" strokeWidth="0.5" strokeDasharray="4,4" />
 
@@ -170,6 +203,23 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
               </g>
             );
           })}
+
+          {/* Render State / Province Boundaries Overlay when Enabled */}
+          {showProvinces &&
+            provinceBoundaryLines.map((line, idx) => (
+              <path
+                key={idx}
+                d={line.d}
+                stroke={
+                  line.countryId === activeCountryId
+                    ? '#FFFFFF'
+                    : 'var(--text-muted)'
+                }
+                strokeWidth="1"
+                strokeDasharray="2,2"
+                className="pointer-events-none opacity-60"
+              />
+            ))}
         </svg>
 
         {/* Hover Tooltip Card */}
@@ -217,7 +267,9 @@ export const VectorMapStage: React.FC<VectorMapStageProps> = ({
             </div>
           )}
         </div>
-        <span className="font-mono text-[var(--text-muted)]">Vector Map Stage • 2:4:2 Matrix</span>
+        <span className="font-mono text-[var(--text-muted)]">
+          {showProvinces ? 'State / Province Grid Active' : 'National Boundaries Only'}
+        </span>
       </div>
     </div>
   );
