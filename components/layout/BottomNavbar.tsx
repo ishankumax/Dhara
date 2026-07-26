@@ -36,8 +36,8 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
       const now = new Date();
       setCurrentTime(
         now.toLocaleTimeString('en-US', {
-          hour: '02-digit',
-          minute: '02-digit',
+          hour: '2-digit',
+          minute: '2-digit',
           hour12: true,
         }) + ' IST'
       );
