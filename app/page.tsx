@@ -8,6 +8,7 @@ import { CountrySelector } from '@/components/selectors/CountrySelector';
 import { VectorMapStage } from '@/components/map/VectorMapStage';
 import { CountryIntelView } from '@/components/intel/CountryIntelView';
 import { ComparisonMatrix } from '@/components/comparison/ComparisonMatrix';
+import { TopographicBackground } from '@/components/common/TopographicBackground';
 import { countryRepository } from '@/lib/repository/JsonCountryRepository';
 import countryIndexData from '@/data/index.json';
 import { CountryIntelProfile, CountryOverview } from '@/types';
@@ -72,11 +73,14 @@ function DharaDashboardContent() {
   };
 
   return (
-    <div className="h-screen max-h-screen overflow-hidden flex flex-col bg-[var(--bg-primary)] transition-colors pt-8 pb-14 select-none">
+    <div className="h-screen max-h-screen overflow-hidden flex flex-col bg-[var(--bg-primary)] transition-colors pt-8 pb-14 select-none relative">
+      {/* Interactive Topographic Contour Lines Background */}
+      <TopographicBackground />
+
       {/* Fixed Top Status Bar */}
       <TopBar />
 
-      <main className="flex-1 min-h-0 max-w-[1600px] w-full mx-auto p-3 lg:p-4 h-full">
+      <main className="flex-1 min-h-0 max-w-[1600px] w-full mx-auto p-3 lg:p-4 h-full z-10">
         {compareCountryId && activeProfile && compareProfile ? (
           /* Mode 1: 4:4 Grid Split Comparison View */
           <div className="h-full min-h-0">
