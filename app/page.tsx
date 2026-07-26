@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
-import { Header } from '@/components/layout/Header';
 import { BottomNavbar } from '@/components/layout/BottomNavbar';
 import { CountrySelector } from '@/components/selectors/CountrySelector';
 import { VectorMapStage } from '@/components/map/VectorMapStage';
@@ -92,13 +91,7 @@ function DharaDashboardContent() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-[var(--bg-primary)] transition-colors pb-20">
-      <Header
-        activeCountryId={activeCountryId}
-        compareCountryId={compareCountryId}
-        onToggleCompareMode={handleToggleCompareMode}
-      />
-
+    <div className="min-h-screen flex flex-col bg-[var(--bg-primary)] transition-colors pb-20 pt-4">
       <main className="flex-1 max-w-[1600px] w-full mx-auto p-4 lg:p-6">
         {compareCountryId && activeProfile && compareProfile ? (
           /* Mode 1: 4:4 Grid Split Comparison View */
