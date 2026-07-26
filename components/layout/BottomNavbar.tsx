@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Globe, ArrowRightLeft, Palette, Sun, Moon, Shield } from 'lucide-react';
 import { AccentColor, ThemeMode } from '@/types';
+import { countryTimezones } from '@/lib/timezones';
 
 interface BottomNavbarProps {
   activeCountryId: string;
@@ -19,8 +20,9 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
   const [accent, setAccent] = useState<AccentColor>('amber');
   const [showAccentPicker, setShowAccentPicker] = useState(false);
 
-  // Live IST Clock (No seconds, no sub timezone, no outer box, pure neon styling)
+  // Clocks: IST (default right) + Selected Country Local Time (on the left of IST when selected)
   const [currentTimeIST, setCurrentTimeIST] = useState<string>('');
+  const [selectedCountryTime, setSelectedCountryTime] = useState<string | null>(null);
   const [currentDate, setCurrentDate] = useState<string>('');
   const [currentDay, setCurrentDay] = useState<string>('');
 
@@ -35,30 +37,55 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
   useEffect(() => {
     const updateClock = () => {
       const now = new Date();
-      const timeStr =
+
+      // 1. IST Time (Always shown)
+      const istTimeStr =
         now.toLocaleTimeString('en-US', {
+          timeZone: 'Asia/Kolkata',
           hour: '2-digit',
           minute: '2-digit',
           hour12: true,
         }) + ' IST';
 
       const dateStr = now.toLocaleDateString('en-GB', {
+        timeZone: 'Asia/Kolkata',
         day: '2-digit',
         month: 'short',
         year: 'numeric',
       });
 
-      const dayStr = now.toLocaleDateString('en-US', { weekday: 'short' });
+      const dayStr = now.toLocaleDateString('en-US', {
+        timeZone: 'Asia/Kolkata',
+        weekday: 'short',
+      });
 
-      setCurrentTimeIST(timeStr);
+      setCurrentTimeIST(istTimeStr);
       setCurrentDate(dateStr);
       setCurrentDay(dayStr);
+
+      // 2. Selected Country Local Time (Shown on the LEFT side of IST when country selected)
+      if (activeCountryId && activeCountryId !== 'IND') {
+        const tzConfig = countryTimezones[activeCountryId];
+        if (tzConfig) {
+          const localStr = now.toLocaleTimeString('en-US', {
+            timeZone: tzConfig.timeZone,
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true,
+          });
+          setSelectedCountryTime(`${activeCountryId}: ${localStr}`);
+        } else {
+          setSelectedCountryTime(null);
+        }
+      } else {
+        setSelectedCountryTime(null);
+      }
     };
 
     updateClock();
     const interval = setInterval(updateClock, 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [activeCountryId]);
 
   const toggleTheme = () => {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
@@ -165,7 +192,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
         </div>
       </div>
 
-      {/* 2. Fixed Bottom Status Bar with Clean Neon IST Time (No clock, no box, no seconds, no sub-tz) */}
+      {/* 2. Fixed Bottom Status Bar: Selected Country Time (Left) + IST (Right) */}
       <div className="w-full bg-[var(--bg-secondary)] border-t border-[var(--border-color)] px-4 lg:px-8 py-1.5 pointer-events-auto flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)] tracking-wider">
         {/* Left: Progress / Data Coverage Bar */}
         <div className="flex items-center space-x-3">
@@ -186,11 +213,20 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
           </span>
         </div>
 
-        {/* Right: Pure Neon IST Time (No Clock Icon, No Box, No Seconds, No Sub-TZ) */}
+        {/* Right: Selected Country Time (Left) + IST (Right) in pure Neon Text */}
         <div className="flex items-center space-x-3">
-          <span className="text-[var(--accent-primary)] font-extrabold text-[11px] font-mono tracking-widest drop-shadow-[0_0_8px_var(--accent-primary)]">
-            {currentTimeIST}
-          </span>
+          <div className="flex items-center space-x-2 text-[var(--accent-primary)] font-extrabold text-[11px] font-mono tracking-widest drop-shadow-[0_0_8px_var(--accent-primary)]">
+            {/* Selected Country Local Time (Displayed on the LEFT side of IST when country clicked) */}
+            {selectedCountryTime && (
+              <>
+                <span>{selectedCountryTime}</span>
+                <span className="text-[var(--text-muted)] opacity-60">|</span>
+              </>
+            )}
+            {/* Default IST Time */}
+            <span>{currentTimeIST}</span>
+          </div>
+
           <span className="text-[var(--border-color)]">|</span>
           <span className="text-[var(--text-primary)]">{currentDate}</span>
           <span className="text-[var(--border-color)]">|</span>
