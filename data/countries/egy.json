@@ -1,0 +1,51 @@
+{
+  "id": "EGY",
+  "name": "Egypt",
+  "officialName": "Arab Republic of Egypt",
+  "flagUrl": "https://flagcdn.com/w160/eg.png",
+  "capital": "Cairo",
+  "region": "Africa",
+  "subregion": "Northern Africa",
+  "population": 112700000,
+  "gdpNominalUsd": 398,
+  "gdpPerCapitaUsd": 3530,
+  "militaryRank": 15,
+  "defenseBudgetUsd": 9.4,
+  "hasDetailedData": true,
+  "summary": "Egypt possesses the largest and most powerful military force in Africa and the Arab world. Operating two Mistral-class amphibious assault ships, Rafale fighters, F-16s, and thousands of main battle tanks, Egypt controls the strategically pivotal Suez Canal maritime bottleneck.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 1080,
+      "fighters": 238,
+      "attackHelicopters": 100
+    },
+    "landForces": {
+      "tanks": 5340,
+      "armoredVehicles": 77590,
+      "artillery": 2880
+    },
+    "navalForces": {
+      "totalAssets": 140,
+      "aircraftCarriers": 2,
+      "submarines": 8,
+      "destroyers": 0
+    },
+    "personnel": {
+      "activeDuty": 440000,
+      "reserves": 480000,
+      "paramilitary": 300000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 3.8,
+    "inflationPercent": 28.3,
+    "topExports": ["Crude Petroleum", "Refined Petroleum", "Fertilizers", "Plastics", "Agricultural Produce"],
+    "topImports": ["Wheat", "Refined Petroleum", "Pharmaceuticals", "Cars"],
+    "majorTradingPartners": ["United Arab Emirates", "Saudi Arabia", "United States", "China", "Germany", "Italy"]
+  },
+  "alliances": {
+    "primaryBlock": "African Union / Arab League / Major Non-NATO Ally",
+    "alliances": ["African Union (AU)", "Arab League", "BRICS (Joined 2024)", "Major Non-NATO Ally (US)"],
+    "strategicPartners": ["United States", "Saudi Arabia", "United Arab Emirates", "France", "Russia", "China"]
+  }
+}

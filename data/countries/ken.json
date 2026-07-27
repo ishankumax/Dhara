@@ -1,0 +1,51 @@
+{
+  "id": "KEN",
+  "name": "Kenya",
+  "officialName": "Republic of Kenya",
+  "flagUrl": "https://flagcdn.com/w160/ke.png",
+  "capital": "Nairobi",
+  "region": "Africa",
+  "subregion": "Eastern Africa",
+  "population": 55100000,
+  "gdpNominalUsd": 113,
+  "gdpPerCapitaUsd": 2050,
+  "militaryRank": 68,
+  "defenseBudgetUsd": 1.2,
+  "hasDetailedData": true,
+  "summary": "Kenya is East Africa's primary financial and diplomatic hub. Designated as a Major Non-NATO Ally by the United States in 2024, the Kenya Defence Forces (KDF) lead regional counter-terrorism efforts and African Union peace-keeping missions operating F-5E Tiger jets and MD 530F attack helicopters.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 156,
+      "fighters": 17,
+      "attackHelicopters": 34
+    },
+    "landForces": {
+      "tanks": 78,
+      "armoredVehicles": 2150,
+      "artillery": 50
+    },
+    "navalForces": {
+      "totalAssets": 19,
+      "aircraftCarriers": 0,
+      "submarines": 0,
+      "destroyers": 0
+    },
+    "personnel": {
+      "activeDuty": 24100,
+      "reserves": 0,
+      "paramilitary": 5000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 5.0,
+    "inflationPercent": 6.9,
+    "topExports": ["Tea", "Cut Flowers", "Refined Petroleum", "Coffee", "Titanium Ore"],
+    "topImports": ["Refined Petroleum", "Palm Oil", "Cars", "Wheat", "Pharmaceuticals"],
+    "majorTradingPartners": ["China", "India", "United Arab Emirates", "United States", "Uganda", "United Kingdom"]
+  },
+  "alliances": {
+    "primaryBlock": "Major Non-NATO Ally / East African Community / AU",
+    "alliances": ["Major Non-NATO Ally (US 2024)", "East African Community (EAC)", "African Union (AU)", "Commonwealth of Nations"],
+    "strategicPartners": ["United States", "United Kingdom", "China", "India", "Japan"]
+  }
+}

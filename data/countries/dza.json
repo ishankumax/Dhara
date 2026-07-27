@@ -1,0 +1,51 @@
+{
+  "id": "DZA",
+  "name": "Algeria",
+  "officialName": "People's Democratic Republic of Algeria",
+  "flagUrl": "https://flagcdn.com/w160/dz.png",
+  "capital": "Algiers",
+  "region": "Africa",
+  "subregion": "Northern Africa",
+  "population": 44900000,
+  "gdpNominalUsd": 224,
+  "gdpPerCapitaUsd": 4980,
+  "militaryRank": 26,
+  "defenseBudgetUsd": 10.0,
+  "hasDetailedData": true,
+  "summary": "Algeria commands one of North Africa's largest and best-equipped militaries, equipped predominantly with modern Russian hardware including Su-30MKA fighters, S-300/S-400 air defense networks, T-90 tanks, and Kilo-class submarines carrying Club-S cruise missiles.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 605,
+      "fighters": 125,
+      "attackHelicopters": 45
+    },
+    "landForces": {
+      "tanks": 1630,
+      "armoredVehicles": 35000,
+      "artillery": 820
+    },
+    "navalForces": {
+      "totalAssets": 201,
+      "aircraftCarriers": 0,
+      "submarines": 6,
+      "destroyers": 0
+    },
+    "personnel": {
+      "activeDuty": 130000,
+      "reserves": 135000,
+      "paramilitary": 150000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 4.2,
+    "inflationPercent": 9.3,
+    "topExports": ["Natural Gas", "Crude Petroleum", "Refined Petroleum", "Fertilizers"],
+    "topImports": ["Wheat", "Capital Machinery", "Vehicles", "Pharmaceuticals"],
+    "majorTradingPartners": ["Italy", "Spain", "France", "China", "Turkey", "Germany"]
+  },
+  "alliances": {
+    "primaryBlock": "African Union / Arab League",
+    "alliances": ["African Union (AU)", "Arab League", "OPEC", "Non-Aligned Movement (NAM)"],
+    "strategicPartners": ["Russia", "China", "Italy", "Turkey", "South Africa"]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "ETH",
+  "name": "Ethiopia",
+  "officialName": "Federal Democratic Republic of Ethiopia",
+  "flagUrl": "https://flagcdn.com/w160/et.png",
+  "capital": "Addis Ababa",
+  "region": "Africa",
+  "subregion": "Eastern Africa",
+  "population": 126500000,
+  "gdpNominalUsd": 156,
+  "gdpPerCapitaUsd": 1230,
+  "militaryRank": 49,
+  "defenseBudgetUsd": 1.5,
+  "hasDetailedData": true,
+  "summary": "Ethiopia host of the African Union headquarters in Addis Ababa is a dominant geopolitical power in the Horn of Africa. The Ethiopian National Defense Force (ENDF) operates Su-27 and Su-30 fighters, armed Bayraktar TB2 drones, and extensive land artillery systems.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 92,
+      "fighters": 24,
+      "attackHelicopters": 8
+    },
+    "landForces": {
+      "tanks": 460,
+      "armoredVehicles": 8100,
+      "artillery": 480
+    },
+    "navalForces": {
+      "totalAssets": 0,
+      "aircraftCarriers": 0,
+      "submarines": 0,
+      "destroyers": 0
+    },
+    "personnel": {
+      "activeDuty": 162000,
+      "reserves": 0,
+      "paramilitary": 0
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 6.1,
+    "inflationPercent": 28.5,
+    "topExports": ["Coffee", "Gold", "Cut Flowers", "Oil Seeds", "Khat", "Textiles"],
+    "topImports": ["Gasoline", "Wheat", "Medicaments", "Cars", "Iron & Steel"],
+    "majorTradingPartners": ["China", "United States", "United Arab Emirates", "Saudi Arabia", "India", "Germany"]
+  },
+  "alliances": {
+    "primaryBlock": "BRICS / African Union / IGAD",
+    "alliances": ["BRICS (Joined 2024)", "African Union (AU)", "Intergovernmental Authority on Development (IGAD)"],
+    "strategicPartners": ["China", "United Arab Emirates", "Turkey", "Russia", "India"]
+  }
+}

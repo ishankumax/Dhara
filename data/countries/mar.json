@@ -1,0 +1,51 @@
+{
+  "id": "MAR",
+  "name": "Morocco",
+  "officialName": "Kingdom of Morocco",
+  "flagUrl": "https://flagcdn.com/w160/ma.png",
+  "capital": "Rabat",
+  "region": "Africa",
+  "subregion": "Northern Africa",
+  "population": 37800000,
+  "gdpNominalUsd": 147,
+  "gdpPerCapitaUsd": 3890,
+  "militaryRank": 61,
+  "defenseBudgetUsd": 5.2,
+  "hasDetailedData": true,
+  "summary": "Morocco maintains a modern NATO-interoperable military force controlling Western Sahara coastal access and Atlantic-Mediterranean maritime transit. Operating F-16 Viper upgrades, M1A2 Abrams tanks, and SIGMA frigates, Morocco is a US Major Non-NATO Ally.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 244,
+      "fighters": 83,
+      "attackHelicopters": 0
+    },
+    "landForces": {
+      "tanks": 1564,
+      "armoredVehicles": 13715,
+      "artillery": 512
+    },
+    "navalForces": {
+      "totalAssets": 121,
+      "aircraftCarriers": 0,
+      "submarines": 0,
+      "destroyers": 0
+    },
+    "personnel": {
+      "activeDuty": 195000,
+      "reserves": 150000,
+      "paramilitary": 50000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 3.2,
+    "inflationPercent": 6.1,
+    "topExports": ["Phosphates & Fertilizers", "Cars", "Insulated Wire", "Textiles", "Agricultural Produce"],
+    "topImports": ["Crude Petroleum", "Refined Petroleum", "Wheat", "Gasoline"],
+    "majorTradingPartners": ["Spain", "France", "Italy", "China", "United States", "Germany"]
+  },
+  "alliances": {
+    "primaryBlock": "African Union / Major Non-NATO Ally / Abraham Accords",
+    "alliances": ["African Union (AU)", "Arab League", "Major Non-NATO Ally (US)", "Abraham Accords"],
+    "strategicPartners": ["United States", "France", "Spain", "Israel", "United Arab Emirates"]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "ZAF",
+  "name": "South Africa",
+  "officialName": "Republic of South Africa",
+  "flagUrl": "https://flagcdn.com/w160/za.png",
+  "capital": "Pretoria / Cape Town",
+  "region": "Africa",
+  "subregion": "Southern Africa",
+  "population": 60400000,
+  "gdpNominalUsd": 380,
+  "gdpPerCapitaUsd": 6300,
+  "militaryRank": 33,
+  "defenseBudgetUsd": 3.1,
+  "hasDetailedData": true,
+  "summary": "South Africa is the industrial heavyweight of Southern Africa and a founding member of BRICS. The South African National Defence Force (SANDF) features advanced domestic defence production capabilities (Denel Dynamics), Saab JAS 39 Gripen fighters, and Heroine-class submarines.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 224,
+      "fighters": 26,
+      "attackHelicopters": 12
+    },
+    "landForces": {
+      "tanks": 195,
+      "armoredVehicles": 2565,
+      "artillery": 150
+    },
+    "navalForces": {
+      "totalAssets": 47,
+      "aircraftCarriers": 0,
+      "submarines": 3,
+      "destroyers": 0
+    },
+    "personnel": {
+      "activeDuty": 73000,
+      "reserves": 15000,
+      "paramilitary": 0
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 0.6,
+    "inflationPercent": 5.3,
+    "topExports": ["Gold", "Platinum", "Diamonds", "Coal", "Cars", "Iron Ore"],
+    "topImports": ["Refined Petroleum", "Crude Petroleum", "Cars", "Broadcast Equipment"],
+    "majorTradingPartners": ["China", "United States", "Germany", "India", "Japan", "United Kingdom"]
+  },
+  "alliances": {
+    "primaryBlock": "BRICS / SADC / African Union",
+    "alliances": ["BRICS", "Southern African Development Community (SADC)", "African Union (AU)", "Non-Aligned Movement (NAM)"],
+    "strategicPartners": ["China", "Russia", "India", "Brazil", "Germany", "United States"]
+  }
+}
