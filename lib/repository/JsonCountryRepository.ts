@@ -8,6 +8,7 @@ import indIntel from '@/data/countries/ind.json';
 import rusIntel from '@/data/countries/rus.json';
 import gbrIntel from '@/data/countries/gbr.json';
 import fraIntel from '@/data/countries/fra.json';
+import ausIntel from '@/data/countries/aus.json';
 import jpnIntel from '@/data/countries/jpn.json';
 
 const seedProfiles: Record<string, CountryIntelProfile> = {
@@ -18,6 +19,7 @@ const seedProfiles: Record<string, CountryIntelProfile> = {
   GBR: gbrIntel as CountryIntelProfile,
   FRA: fraIntel as CountryIntelProfile,
   JPN: jpnIntel as CountryIntelProfile,
+  AUS: ausIntel as CountryIntelProfile,
 };
 
 export class JsonCountryRepository implements ICountryRepository {

@@ -98,6 +98,20 @@
     "defenseBudgetUsd": 50
   },
   {
+    "id": "AUS",
+    "name": "Australia",
+    "officialName": "Commonwealth of Australia",
+    "flagUrl": "https://flagcdn.com/w160/au.png",
+    "capital": "Canberra",
+    "region": "Oceania",
+    "subregion": "Australia and New Zealand",
+    "population": 26500000,
+    "gdpNominalUsd": 1700,
+    "gdpPerCapitaUsd": 64000,
+    "militaryRank": 16,
+    "defenseBudgetUsd": 32
+  },
+  {
     "id": "DEU",
     "name": "Germany",
     "officialName": "Federal Republic of Germany",
