@@ -95,7 +95,8 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
       setCurrentDay(dayStr);
 
       // 2. Selected Country Local Time
-      const tzConfig = countryTimezones[activeCountryId] || {
+      const code = (activeCountryId || 'USA').toUpperCase();
+      const tzConfig = countryTimezones[code] || {
         timeZone: 'Asia/Kolkata',
         code: 'IST',
       };
@@ -126,17 +127,18 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
     { id: 'crimson', name: 'Crimson Intel', colorHex: '#DC2626' },
   ];
 
-  // Resolve country metadata
+  // Resolve country metadata with normalized uppercase code
+  const code = (activeCountryId || 'USA').toUpperCase();
   const countryList = countries || (countryIndexData as CountryOverview[]);
   const activeCountry =
-    countryList.find((c) => c.id === activeCountryId) || {
-      id: activeCountryId,
-      name: activeCountryId,
+    countryList.find((c) => c.id.toUpperCase() === code) || {
+      id: code,
+      name: code,
       region: 'Global',
       flagUrl: '',
     };
 
-  const flagEmoji = FLAG_EMOJIS[activeCountryId] || '🌐';
+  const flagEmoji = FLAG_EMOJIS[code] || '🌐';
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-auto bg-[var(--bg-secondary)] border-t border-[var(--border-color)] px-4 lg:px-8 py-1.5 flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)] tracking-wider shadow-2xl">
