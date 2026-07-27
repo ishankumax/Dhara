@@ -39,7 +39,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
 
   // Clocks
   const [currentTimeIST, setCurrentTimeIST] = useState<string>('');
-  const [selectedCountryTime, setSelectedCountryTime] = useState<string | null>(null);
+  const [selectedCountryTime, setSelectedCountryTime] = useState<string>('');
   const [currentDate, setCurrentDate] = useState<string>('');
   const [currentDay, setCurrentDay] = useState<string>('');
 
@@ -69,7 +69,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
     const updateClock = () => {
       const now = new Date();
 
-      // IST Time (Formatted without seconds)
+      // 1. Standard IST Time (Formatted without seconds)
       const istTimeStr =
         now.toLocaleTimeString('en-US', {
           timeZone: 'Asia/Kolkata',
@@ -94,23 +94,20 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
       setCurrentDate(dateStr);
       setCurrentDay(dayStr);
 
-      // Selected Country Local Time (for non-IND countries)
-      if (activeCountryId && activeCountryId !== 'IND') {
-        const tzConfig = countryTimezones[activeCountryId];
-        if (tzConfig) {
-          const localStr = now.toLocaleTimeString('en-US', {
-            timeZone: tzConfig.timeZone,
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true,
-          });
-          setSelectedCountryTime(`${activeCountryId}: ${localStr}`);
-        } else {
-          setSelectedCountryTime(null);
-        }
-      } else {
-        setSelectedCountryTime(null);
-      }
+      // 2. Selected Country Local Time
+      const tzConfig = countryTimezones[activeCountryId] || {
+        timeZone: 'Asia/Kolkata',
+        code: 'IST',
+      };
+
+      const localStr = now.toLocaleTimeString('en-US', {
+        timeZone: tzConfig.timeZone,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+      });
+
+      setSelectedCountryTime(`${localStr} ${tzConfig.code}`);
     };
 
     updateClock();
@@ -143,24 +140,19 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
 
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-auto bg-[var(--bg-secondary)] border-t border-[var(--border-color)] px-4 lg:px-8 py-1.5 flex items-center justify-between text-[10px] font-mono text-[var(--text-muted)] tracking-wider shadow-2xl">
-      {/* 1. Left: Country Indicator (Flag Icon | Country Name | Continent) */}
+      {/* 1. Left: Flag + Country Name + Selected Country Local Time */}
       <div className="flex items-center space-x-2 min-w-0">
-        {/* Country Flag Icon aligned to far left edge */}
-        {activeCountry.flagUrl ? (
-          <img
-            src={activeCountry.flagUrl}
-            alt={activeCountry.name}
-            className="w-4 h-3 object-cover rounded shadow-xs border border-[var(--border-color)]/40 flex-shrink-0"
-          />
-        ) : (
-          <span className="text-xs leading-none flex-shrink-0">{flagEmoji}</span>
-        )}
+        {/* Instant Flag Emoji / Icon */}
+        <span className="text-xs leading-none select-none flex-shrink-0" title={activeCountry.name}>
+          {flagEmoji}
+        </span>
         <span className="font-bold text-[var(--text-primary)] truncate">
           {activeCountry.name}
         </span>
         <span className="text-[var(--border-color)] opacity-60">|</span>
-        <span className="text-[var(--text-secondary)] truncate">
-          {activeCountry.region}
+        {/* Highlighted Selected Country Local Time */}
+        <span className="text-[var(--accent-primary)] font-bold drop-shadow-[0_0_8px_var(--accent-primary)] truncate">
+          {selectedCountryTime}
         </span>
       </div>
 
@@ -189,7 +181,7 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
           />
         </button>
 
-        {/* Workspace Dropdown Popover Panel (Original Floating Pill Design + Glassmorphism Water Effect) */}
+        {/* Workspace Dropdown Popover Panel */}
         {isWorkspaceOpen && (
           <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 flex flex-col items-center z-50 pointer-events-auto transition-all duration-200">
             {/* Accent Palette Dropdown Menu */}
@@ -259,29 +251,11 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
         )}
       </div>
 
-      {/* 3. Right: Time Displays & Reference Clocks (Uniform text-[10px] font-mono tracking-wider) */}
+      {/* 3. Right: IST Reference Clock & Calendar */}
       <div className="flex items-center space-x-3 text-[10px] font-mono tracking-wider">
-        <div className="flex items-center space-x-2">
-          {/* Selected Country Local Time (Primary: Neon Accent Highlighted) */}
-          {selectedCountryTime ? (
-            <>
-              <span className="text-[var(--accent-primary)] font-bold drop-shadow-[0_0_8px_var(--accent-primary)]">
-                {selectedCountryTime}
-              </span>
-              <span className="text-[var(--border-color)] opacity-60">|</span>
-              {/* Secondary IST Reference Time (Muted) */}
-              <span className="text-[var(--text-muted)] font-medium">
-                {currentTimeIST}
-              </span>
-            </>
-          ) : (
-            /* Default IST Time when no other country selected (Primary: Neon Accent Highlighted) */
-            <span className="text-[var(--accent-primary)] font-bold drop-shadow-[0_0_8px_var(--accent-primary)]">
-              {currentTimeIST}
-            </span>
-          )}
-        </div>
-
+        <span className="text-[var(--text-muted)] font-medium">
+          IST: {currentTimeIST}
+        </span>
         <span className="text-[var(--border-color)] opacity-60">|</span>
         <span className="text-[var(--text-secondary)]">{currentDate}</span>
         <span className="text-[var(--border-color)] opacity-60">|</span>
@@ -290,4 +264,5 @@ export const BottomNavbar: React.FC<BottomNavbarProps> = ({
     </div>
   );
 };
+
 
