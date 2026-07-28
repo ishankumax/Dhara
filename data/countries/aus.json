@@ -1,0 +1,51 @@
+{
+  "id": "AUS",
+  "name": "Australia",
+  "officialName": "Commonwealth of Australia",
+  "flagUrl": "https://flagcdn.com/w160/au.png",
+  "capital": "Canberra",
+  "region": "Oceania",
+  "subregion": "Australia and New Zealand",
+  "population": 26500000,
+  "gdpNominalUsd": 1700,
+  "gdpPerCapitaUsd": 64000,
+  "militaryRank": 16,
+  "defenseBudgetUsd": 32,
+  "hasDetailedData": true,
+  "summary": "The Australian Defence Force (ADF) is a highly capable mid-tier power with world-class naval and air capabilities, anchored by the AUKUS partnership that will deliver nuclear-powered submarines. Australia operates F-35A stealth fighters, Hobart-class Aegis destroyers, and is transitioning to one of the most advanced defence postures in the Indo-Pacific through strategic alliances with the US and UK.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 468,
+      "fighters": 72,
+      "attackHelicopters": 45
+    },
+    "landForces": {
+      "tanks": 59,
+      "armoredVehicles": 2040,
+      "artillery": 112
+    },
+    "navalForces": {
+      "totalAssets": 52,
+      "aircraftCarriers": 0,
+      "submarines": 6,
+      "destroyers": 3
+    },
+    "personnel": {
+      "activeDuty": 60000,
+      "reserves": 30000,
+      "paramilitary": 0
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 2.1,
+    "inflationPercent": 3.6,
+    "topExports": ["Iron Ore", "Coal", "Natural Gas", "Gold", "Beef", "Aluminium"],
+    "topImports": ["Machinery", "Vehicles", "Petroleum Products", "Computers", "Medical Instruments"],
+    "majorTradingPartners": ["China", "Japan", "South Korea", "United States", "India", "United Kingdom"]
+  },
+  "alliances": {
+    "primaryBlock": "AUKUS / Five Eyes / Quad",
+    "alliances": ["AUKUS", "Five Eyes", "Quad", "ANZUS Treaty", "Comprehensive and Progressive Agreement for Trans-Pacific Partnership (CPTPP)", "Five Power Defence Arrangements"],
+    "strategicPartners": ["United States", "United Kingdom", "Japan", "India", "Canada", "New Zealand"]
+  }
+}

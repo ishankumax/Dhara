@@ -8,7 +8,15 @@ import indIntel from '@/data/countries/ind.json';
 import rusIntel from '@/data/countries/rus.json';
 import gbrIntel from '@/data/countries/gbr.json';
 import fraIntel from '@/data/countries/fra.json';
+import ausIntel from '@/data/countries/aus.json';
 import jpnIntel from '@/data/countries/jpn.json';
+import egyIntel from '@/data/countries/egy.json';
+import dzaIntel from '@/data/countries/dza.json';
+import zafIntel from '@/data/countries/zaf.json';
+import ngaIntel from '@/data/countries/nga.json';
+import ethIntel from '@/data/countries/eth.json';
+import marIntel from '@/data/countries/mar.json';
+import kenIntel from '@/data/countries/ken.json';
 
 const seedProfiles: Record<string, CountryIntelProfile> = {
   USA: usaIntel as CountryIntelProfile,
@@ -18,6 +26,14 @@ const seedProfiles: Record<string, CountryIntelProfile> = {
   GBR: gbrIntel as CountryIntelProfile,
   FRA: fraIntel as CountryIntelProfile,
   JPN: jpnIntel as CountryIntelProfile,
+  AUS: ausIntel as CountryIntelProfile,
+  EGY: egyIntel as CountryIntelProfile,
+  DZA: dzaIntel as CountryIntelProfile,
+  ZAF: zafIntel as CountryIntelProfile,
+  NGA: ngaIntel as CountryIntelProfile,
+  ETH: ethIntel as CountryIntelProfile,
+  MAR: marIntel as CountryIntelProfile,
+  KEN: kenIntel as CountryIntelProfile,
 };
 
 export class JsonCountryRepository implements ICountryRepository {

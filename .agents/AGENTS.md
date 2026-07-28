@@ -16,4 +16,4 @@
 ## Vercel Deployment & Git Workflow
 - **Vercel Config**: Keep `vercel.json` minimal (`{ "framework": "nextjs" }`) to leverage Vercel's native zero-config `@vercel/next` builder. Do NOT add explicit `buildCommand` overrides in `vercel.json` for Next.js 14 App Router.
 - **Data Repository**: Maintain static seed profile imports (`usa.json`, `chn.json`, `ind.json`, etc.) with safe fallback profile objects for unseeded nations to prevent Webpack `MODULE_NOT_FOUND` runtime crashes.
-- **Git Synchronization**: Always keep `V.1.0.0` and `main` branches synced, pushing commits to both `origin/V.1.0.0` and `origin/main` with a clean working tree.
+- **Git Synchronization**: Always keep `V.1.2.0` and `main` branches synced, pushing commits to both `origin/V.1.2.0` and `origin/main` with a clean working tree.

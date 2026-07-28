@@ -16,7 +16,7 @@ export const TopBar: React.FC = () => {
         SYSTEM STATUS: ONLINE • ALL INTEL ENGINES OPERATIONAL
       </div>
       <div className="font-bold text-[var(--accent-primary)] uppercase">
-        [ CONTENT TO BE DECIDED ]
+        V1.2.0 • LIVE
       </div>
     </div>
   );

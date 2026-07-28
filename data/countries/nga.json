@@ -1,0 +1,51 @@
+{
+  "id": "NGA",
+  "name": "Nigeria",
+  "officialName": "Federal Republic of Nigeria",
+  "flagUrl": "https://flagcdn.com/w160/ng.png",
+  "capital": "Abuja",
+  "region": "Africa",
+  "subregion": "Western Africa",
+  "population": 223800000,
+  "gdpNominalUsd": 477,
+  "gdpPerCapitaUsd": 2130,
+  "militaryRank": 39,
+  "defenseBudgetUsd": 3.4,
+  "hasDetailedData": true,
+  "summary": "Nigeria is Africa's most populous nation and largest economy. The Nigerian Armed Forces lead counter-insurgency operations in West Africa and form the core force of the ECOWAS Standby Force, operating JF-17 Thunder jets, A-29 Super Tucanos, and OPV naval assets.",
+  "military": {
+    "aircraft": {
+      "totalFleet": 140,
+      "fighters": 15,
+      "attackHelicopters": 16
+    },
+    "landForces": {
+      "tanks": 361,
+      "armoredVehicles": 4540,
+      "artillery": 330
+    },
+    "navalForces": {
+      "totalAssets": 133,
+      "aircraftCarriers": 0,
+      "submarines": 0,
+      "destroyers": 0
+    },
+    "personnel": {
+      "activeDuty": 135000,
+      "reserves": 0,
+      "paramilitary": 80000
+    }
+  },
+  "economy": {
+    "gdpGrowthRatePercent": 2.9,
+    "inflationPercent": 29.9,
+    "topExports": ["Crude Petroleum", "Petroleum Gas", "Cocoa Beans", "Fertilizers"],
+    "topImports": ["Refined Petroleum", "Wheat", "Cars", "Pharmaceuticals", "Broadcasting Equipment"],
+    "majorTradingPartners": ["India", "Spain", "Netherlands", "China", "United States", "France"]
+  },
+  "alliances": {
+    "primaryBlock": "ECOWAS / African Union",
+    "alliances": ["Economic Community of West African States (ECOWAS)", "African Union (AU)", "OPEC", "Commonwealth of Nations"],
+    "strategicPartners": ["India", "United States", "United Kingdom", "China", "France", "Turkey"]
+  }
+}
